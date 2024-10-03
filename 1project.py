@@ -15,14 +15,21 @@ kindness2 = 0
 stun = 0
 tired = False
 
+
+def resettotutorialmessage():
+    global message
+    message = "Tutorial Start - No penalty for death, no stuns.\nUse the up and down arrows to control the speed as you see fit."
+
 def enemytired():
+    global intutorial
     global is_fake
     global tired
     global message
-    is_fake = False
-    tired = True
-    message = "The enemy looks tired."
-    clearenemyattacks()
+    if intutorial == False:
+        is_fake = False
+        tired = True
+        message = "The enemy looks tired."
+        clearenemyattacks()
 
 
 def unstun():
@@ -115,6 +122,7 @@ def clearmessage():
     message = "Keep going!"
 stuntimer = TimerEx(interval_sec=6, function=unstun,)
 tiredtimer20 = TimerEx(interval_sec=20, function=enemytired,)
+messageresettimer = TimerEx(interval_sec=2,function=resettotutorialmessage,)
 timer = Timer(3, clearmessage, args=())
 line1 = [">             *  *  *  *","0000","0"]
 line2 = [">             *  *  *  *","0000","0"]
@@ -565,21 +573,31 @@ def checkstun():
     global incombat
     global message
     global is_fake
-    if stun < 3:
-        time.sleep(0.5)
-        stun = stun + 1
-        message = "STUNNED! (x" + str(stun) + ")"
-        is_fake = True
-        clearattacks()
-        tired = False
-        if not stuntimer.is_alive():
-            stuntimer.start()
-        if not tiredtimer20.is_alive():
-            tiredtimer20.start()
+    global intutorial
+    global messageresettimer
+    if intutorial == False:
+        if stun < 3:
+            time.sleep(0.5)
+            stun = stun + 1
+            message = "STUNNED! (x" + str(stun) + ")"
+            is_fake = True
+            clearattacks()
+            tired = False
+            if not stuntimer.is_alive():
+                stuntimer.start()
+            if not tiredtimer20.is_alive():
+                tiredtimer20.start()
+        else:
+            incombat = False
+            clear()
+            slowprintintroduction("Bruh you died.")
     else:
-        incombat = False
-        clear()
-        slowprintintroduction("Bruh you died.")
+        message = "Ah, you got hit!"
+        if not messageresettimer.is_alive():
+            messageresettimer.start()
+        refresh()
+        time.sleep(0.5)
+        clearboard()
 
 
 
@@ -625,7 +643,7 @@ def checkdeath():
         else:
             kindness = 0
         if keyboard.is_pressed("a") or keyboard.is_pressed("k") or keyboard.is_pressed("l"):
-            checkstun() 
+            checkstun()
         else:
             kindness = 0
 
@@ -669,7 +687,7 @@ def slowprintintroduction(string):
         resultstring = resultstring + string[i]
         print(resultstring)
         i += 1
-        time.sleep(0.01)
+        time.sleep(0.005)
 
 def slowprint(string):
     i = 0
@@ -761,7 +779,11 @@ while menu == 1:
             slowprintintroduction("You FOOL this game isnt done yet")
             SystemExit("FOOL")
         elif menuselection == 2:
-            pass
+            menu = "Tutorial"
+            cancontinue = False
+            slowprintintroduction("Hey there! Welcome to the first game I've made on python.\n(x)\nPRESS Z TO SKIP DIALOGUE")
+            cancontinue = True
+            tutorialdialogue = 0
         elif menuselection == 3:
             menu = False
             slowprintintroduction("Hey man, this game was made by a really epic person by the name of Richardo Liu.\nPlaytesting credits go to Mr. Mick Laughing, Mr. O, and uhhhhhh that other guy.")
@@ -778,15 +800,81 @@ while menu == 1:
     if keyboard.is_pressed('p'):
         endgame()
         
-
-
-
-
-
-
-
-
-
+        
+        
+while menu == "Tutorial":
+    if keyboard.is_pressed('x') and cancontinue == True:
+        cancontinue = False
+        tutorialdialogue = tutorialdialogue + 1
+        if tutorialdialogue == 1:
+            slowprintintroduction("Anyhow, the name's Richard, nice to meet you.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 2:
+            slowprintintroduction("Because this game is made almost completely through text, there are a few notable limitations.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 3:
+            slowprintintroduction("Most importantly, the gameplay might feel a bit counter-intuitive at first.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 4:
+            slowprintintroduction("That's why it is strongly suggested to play the tutorial until you feel comfortable with the controls.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 5:
+            slowprintintroduction("That aside, let me explain how the game works.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 6:
+            slowprintintroduction("Basically, all you gotta do is use the AS and KL keys on your keyboard to 'block' the X's as they come down from above.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 7:
+            slowprintintroduction("It's like a rythem game! Except for the fact that rythem games don't have an attack function. But you should probablly ignore that part of the UI for now.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 8:
+            slowprintintroduction("Mostly because if you miss even a few 'defend' X's, you will die. And I was too lazy to implement a respawn system.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 9:
+            slowprintintroduction("Anyways, after you defend for a while, enemy attacks will become slower. You will have a chance to 'Attack' with minimal interferences.\nHit a few combos and the enemy will perish!\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 10:
+            slowprintintroduction("I'll let you go practice now. When you're done practicing, press 'q'.\n(x)")
+            cancontinue = True
+        elif tutorialdialogue == 11:
+            intutorial = True
+            tutorialspeed = 0.5
+            refresh()
+            incombat = True
+            message = "Tutorial Start - No penalty for death, no stuns.\nUse the up and down arrows to control the speed as you see fit."
+            print(incombat)
+            while incombat == True:
+                generateattack(1,7)
+                additiverefresh = 0
+                generateslash(True)
+                connectattackdef()
+                shiftlines()
+                if incombat == True:
+                    refresh()
+                    if keyboard.is_pressed("Up"):
+                        tutorialspeed = tutorialspeed - 0.05
+                        message = f"Speed changed. Refresh rate is now {tutorialspeed}."
+                        refresh()
+                    if keyboard.is_pressed("Down"):
+                        tutorialspeed = tutorialspeed + 0.05
+                        message = f"Speed changed. Refresh rate is now {tutorialspeed}."
+                        refresh()
+                    time.sleep(tutorialspeed)
+                    if keyboard.is_pressed("q"):
+                        if messageresettimer.is_alive():
+                            messageresettimer.cancel()
+                        menu = 1
+                        menuselection = 0
+                        incombat = False
+                        intutorial = False
+                        slowprintintroduction("Menu:\nStart new game\nTutorial\nCredits\nTesting\n\n(Use the shift key to navigate the menu)")
+    if keyboard.is_pressed("z"):
+        if cancontinue == True:
+            cancontinue = False
+            tutorialdialogue = 10
+            slowprintintroduction("I'll let you go practice now. When you're done practicing, press 'q'.\n(x)")
+            cancontinue = True
+                        
 
 
 while menu == 2:
