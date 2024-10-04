@@ -14,7 +14,7 @@ kindness = 0
 kindness2 = 0
 stun = 0
 tired = False
-
+intutorial = False
 
 def resettotutorialmessage():
     global message
@@ -793,14 +793,26 @@ while menu == 1:
             print("Menu:\nStart new game\nTutorial\n> Credits\nTesting\n\n(Use the enter key to select.)")  
             
         elif menuselection == 4:
-            menu = 2
+            menu = "password"
             clear()
-            refresh()
+            time.sleep(0.5)
+
+
         time.sleep(0.2)
     if keyboard.is_pressed('p'):
         endgame()
         
         
+        
+        
+while menu == "password":
+    userpassword = input("Enter the admin password or be smited.\n> ")
+    if userpassword == "Qsxc333":
+        menu = 2
+        refresh()
+    else:
+        pass
+
         
 while menu == "Tutorial":
     if keyboard.is_pressed('x') and cancontinue == True:
@@ -867,7 +879,8 @@ while menu == "Tutorial":
                         menuselection = 0
                         incombat = False
                         intutorial = False
-                        slowprintintroduction("Menu:\nStart new game\nTutorial\nCredits\nTesting\n\n(Use the shift key to navigate the menu)")
+                        slowprintintroduction("Menu:\nStart new game\nTutorial\nCredits\nTesting\n\n(Use the shift key to navigate the menu)\nSorry, this unintentially crashes the game. I honestly don't know how to fix this")
+                        break
     if keyboard.is_pressed("z"):
         if cancontinue == True:
             cancontinue = False
