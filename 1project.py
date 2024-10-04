@@ -733,7 +733,20 @@ def refresh():
     print("\n")
     print("_____________________________________________________________") 
 
+playername = ''
+startup = 0
 
+
+
+
+
+def gamestart():
+    global playername
+    global startup
+    clear()
+    if startup == 0:
+        startup = 1
+        playername = input("Hey there. What is your name?\n> ")
 
 #slowprintintroduction("""_____________________________________________________________
 #-------------D E F E N D-------------A T T A C K-------------
@@ -756,28 +769,30 @@ while menu == 1:
         if menuselection == 0 or menuselection == 4:
             menuselection = 1
             clear()
-            print("Menu:\n> Start new game\nTutorial\nCredits\nTesting\n\n(Use the enter key to select.)")
+            print("Menu:\n> Start new game\nTutorial\nCredits\nTesting\n\n(Use the Control key to select.)")
         elif menuselection == 1:
             menuselection = 2
             clear()
-            print("Menu:\nStart new game\n> Tutorial\nCredits\nTesting\n\n(Use the enter key to select.)")
+            print("Menu:\nStart new game\n> Tutorial\nCredits\nTesting\n\n(Use the Control key to select.)")
         elif menuselection == 2:
             menuselection = 3
             clear()
-            print("Menu:\nStart new game\nTutorial\n> Credits\nTesting\n\n(Use the enter key to select.)") 
+            print("Menu:\nStart new game\nTutorial\n> Credits\nTesting\n\n(Use the Control key to select.)") 
         elif menuselection == 3:
             menuselection = 4
             clear()
-            print("Menu:\nStart new game\nTutorial\nCredits\n> Testing\n\n(Use the enter key to select.)") 
+            print("Menu:\nStart new game\nTutorial\nCredits\n> Testing\n\n(Use the Control key to select.)") 
         time.sleep(0.2)
         
-    if keyboard.is_pressed("Return"):
+    if keyboard.is_pressed("Control"):
         if menuselection == 0:
             pass
         elif menuselection == 1:
-            clear()
-            slowprintintroduction("You FOOL this game isnt done yet")
-            SystemExit("FOOL")
+            menu = False
+            gamestart()
+
+
+
         elif menuselection == 2:
             menu = "Tutorial"
             cancontinue = False
@@ -797,9 +812,8 @@ while menu == 1:
             clear()
             time.sleep(0.5)
 
-
         time.sleep(0.2)
-    if keyboard.is_pressed('p'):
+    if keyboard.is_pressed('p') and menu == 1:
         endgame()
         
         
@@ -812,6 +826,21 @@ while menu == "password":
         refresh()
     else:
         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
 while menu == "Tutorial":
