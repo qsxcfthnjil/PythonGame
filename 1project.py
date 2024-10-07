@@ -688,6 +688,41 @@ def slowprintintroduction(string):
         print(resultstring)
         i += 1
         time.sleep(0.005)
+        
+        
+def dialogue(name,string):
+    global cancontinue
+    i = 0
+    resultstring = f"\n---- ({name}) ---------------------------------------------\n"
+    cancontinue = False
+    while i < len(string):
+        clear()
+        resultstring = resultstring + string[i]
+        i += 1
+        if i == len(string):
+            print(resultstring + "\n(x)")
+            cancontinue = True
+        else:
+            print(resultstring)
+        time.sleep(0.1)
+        
+        
+        
+        
+        
+        
+def extraslowprintintroduction(string):
+    i = 0
+    resultstring = ""
+    while i < len(string):
+        clear()
+        resultstring = resultstring + string[i]
+        print(resultstring)
+        i += 1
+        time.sleep(0.5)        
+        
+        
+
 
 def slowprint(string):
     i = 0
@@ -746,7 +781,17 @@ def gamestart():
     clear()
     if startup == 0:
         startup = 1
-        playername = input("Hey there. What is your name?\n> ")
+        slowprintintroduction("Hey there. What may your name be?")
+        clear()
+        playername = input("Hey there. What may your name be?\n> ")
+        playername = playername.strip()
+        if playername == "":
+            startup = 0
+            slowprintintroduction("Sorry, invalid name.")
+            time.sleep(2)
+            gamestart()
+
+
 
 #slowprintintroduction("""_____________________________________________________________
 #-------------D E F E N D-------------A T T A C K-------------
@@ -788,9 +833,9 @@ while menu == 1:
         if menuselection == 0:
             pass
         elif menuselection == 1:
-            menu = False
-            gamestart()
-
+            menu = "Main - Intro"
+            introstage = 1
+            cancontinue = False
 
 
         elif menuselection == 2:
@@ -826,6 +871,58 @@ while menu == "password":
         refresh()
     else:
         pass
+
+
+
+
+def gamestart2():
+    global partnername
+    slowprintintroduction(f"Greetings, {playername}. What is your partner named?")
+    clear()
+    partnername = input(f"Greetings, {playername}. What is your partner named?\n> ")
+    partnername = partnername.strip()
+    if partnername == "":
+        slowprintintroduction("Invalid name. Try again.")
+        time.sleep(2)
+
+
+
+
+
+while menu == "Main - Intro":
+    if cancontinue == True:
+        if keyboard.is_pressed('x'):
+            cancontinue = False
+            introstage = introstage[0] + 1
+    if introstage == 1:
+        gamestart()
+        gamestart2()
+
+        extraslowprintintroduction("\n...")
+        clear()
+        time.sleep(0.5)
+        extraslowprintintroduction("\n...")
+        clear()
+        time.sleep(2)
+        dialogue("???","Hey.")
+        introstage = [1,'waiting']
+    if introstage == 2:
+        dialogue("???",f"{playername}. {playername.upper()}! Wake up. Someone's coming.")
+        introstage = [2, 'waiting']
+    if introstage == 3:
+        dialogue(f"{playername}","(Huh? Where am I?)")
+        introstage = [3,'waiting']
+    if introstage == 4:
+        dialogue(f"{playername}",f"(...{partnername}? Is that you?)")
+        introstage = [4,'waiting']
+
+
+
+
+
+
+
+
 
 
 
