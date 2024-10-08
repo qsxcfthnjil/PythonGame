@@ -4,7 +4,7 @@ import keyboard
 import random
 import sys
 from threading import Timer
-
+import math
 
 incombat = True
 refreshrate = 0.4
@@ -25,7 +25,7 @@ def enemytired():
     global is_fake
     global tired
     global message
-    if intutorial == False:
+    if intutorial == False and not battle == "Shadowking1":
         is_fake = False
         tired = True
         message = "The enemy looks tired."
@@ -563,7 +563,7 @@ def checkattack():
                     tiredtimer20.start()
 
 
-
+battle = "tutorial/test"
 
 
 
@@ -575,6 +575,8 @@ def checkstun():
     global is_fake
     global intutorial
     global messageresettimer
+    global tired
+    global tiredtimer20
     if intutorial == False:
         if stun < 3:
             time.sleep(0.5)
@@ -588,9 +590,18 @@ def checkstun():
             if not tiredtimer20.is_alive():
                 tiredtimer20.start()
         else:
-            incombat = False
-            clear()
-            slowprintintroduction("Bruh you died.")
+            if battle == "tutorial/test":
+                incombat = False
+                clear()
+                slowprintintroduction("Bruh you died.")
+            elif battle == "Shadowking1":
+                if tiredtimer20.is_alive():
+                    tiredtimer20.cancel()
+                if stuntimer.is_alive():
+                    stuntimer.cancel()
+                clear()
+                incombat = False
+                
     else:
         message = "Ah, you got hit!"
         if not messageresettimer.is_alive():
@@ -704,8 +715,23 @@ def dialogue(name,string):
             cancontinue = True
         else:
             print(resultstring)
-        time.sleep(0.1)
-        
+        time.sleep(0.05)
+
+
+def cutscene(string):
+    global cancontinue
+    i = 0
+    resultstring = ""
+    cancontinue = False
+    while i < len(string):
+        clear()
+        resultstring = resultstring + string[i]
+        i += 1
+        if i == len(string):
+            print(resultstring + "\n(x)")
+            cancontinue = True
+        else:
+            print(resultstring)
         
         
         
@@ -735,6 +761,51 @@ def slowprint(string):
         refresh()
         time.sleep(0.05)
 
+
+
+
+def refreshspeedcontrol():
+    global stun
+    global difficulty
+    global enemies
+    global additivecomborefresh
+    global additiverefresh
+    global is_fake
+    global incombat
+    if stun == 0:
+        generateattack(enemies,difficulty)
+        additiverefresh = 0
+    elif stun == 1:
+        if difficulty < 10:
+            generateattack(enemies,difficulty + 1)      
+        else:
+            additiverefresh = 0.02 
+    elif stun == 2:
+        if difficulty < 9:
+            generateattack(enemies,difficulty + 2)  
+        else:
+            additiverefresh = 0.05
+    elif stun == 3:
+        if difficulty < 8:
+            generateattack(enemies,difficulty + 3)  
+        else:
+            additiverefresh = 0.1
+    generateslash(is_fake)
+    connectattackdef()
+    shiftlines()
+    if incombat == True:
+        refresh()
+        if stun == 0:
+            if tired == True:
+                time.sleep((refreshrate + 0.2) / additivecomborefresh)
+            else:
+                time.sleep(math.abs(refreshrate - additiverefresh)/ additivecomborefresh)
+        elif stun == 1:
+            time.sleep(refreshrate - additiverefresh - 0.05)
+        elif stun == 2:
+            time.sleep(refreshrate - additiverefresh - 0.05)
+        elif stun == 3:
+            time.sleep(refreshrate - additiverefresh - 0.1)
 
 def endgame():
     clear()
@@ -773,6 +844,10 @@ startup = 0
 
 
 
+def speedup():
+    global refreshrate
+    if refreshrate > 0.1:
+        refreshrate = refreshrate - 1 
 
 
 def gamestart():
@@ -915,24 +990,110 @@ while menu == "Main - Intro":
     if introstage == 4:
         dialogue(f"{playername}",f"(...{partnername}? Is that you?)")
         introstage = [4,'waiting']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if introstage == 5:
+        dialogue(f"{playername}",f"(What's happening? Where are we?)")
+        introstage = [5,'waiting']
+    if introstage == 6:
+        dialogue(f"{partnername}",f"Shh! No time to explain. Grab your sword. Our visitor doesn't look friendly...")
+        introstage = [6,'waiting']
+    if introstage == 7:
+        dialogue(f"{playername}",f"(I have a sword...?)")
+        introstage = [7,'waiting']
+    if introstage == 8:
+        dialogue(f"{partnername}",f"Here they come! {playername}! Get ready!")
+        introstage = [8,'waiting']
+    if introstage == 9:
+        cancontinue = False
+        cutscene("""              .
+             /.\\
+             |.|
+             |.|
+             |.|
+             |.|   ,'`.
+             |.|  ;\  /:
+             |.| /  \/  \\
+             |.|<.<_\/_>,>
+             |.| \`.::,'/
+             |.|,'.'||'/.
+          ,-'|.|.`.____,'`.
+        ,' .`|.| `.____,;/ \\
+       ,'=-.`|.|\ .   \ |,':
+      /_   :)|.|.`.___:,:,'|.
+     (  `-:;\|.|.`.)  |.`-':,\\
+     /.   /  ;.:--'   |    | ,`.
+    / _>-'._.'-'.     |.   |' / )._
+   :.'    ((.__;/     |    |._ /__ `.___
+   `.>._.-' |)=(      |.   ;  '--.._,`-.`.
+            ',--'`-._ | _,:          `='`'
+            /_`-. `..`:'/_.\\
+           :__``--..\\\_/_..:
+           |  ``--..,:;\__.|
+           |`--..__/:;  :__|
+           `._____:-;_,':__;
+            |:'    /::'  `|
+            |,---.:  :,-'`;
+            : __  )  ;__,'\\
+            \\' ,`/   \__  :
+            :. |,:   :  `./
+            | `| |   |   |:
+            |  | |   |   ||
+            |  | |   |   ||
+            |  | |   '   ||
+            |  : |    \  ||
+            |  ; :    :  ||
+            | / ,;    |\,'`.
+            ;-.(,'    '-._,-`.
+          ,'-.//          `--' 
+          `---'""")
+        introstage = [9,'waiting']
+    if introstage == 10:
+        dialogue(f"???",f"Ah. It seems Lady Fate smiles upon me today.")
+        introstage = [10,'waiting']
+    if introstage == 11:
+        dialogue(f"{partnername}",f"What do you want?")
+        introstage = [11,'waiting']
+    if introstage == 12:
+        dialogue(f"???",f"That is a good question. My answer is that I know not what I want, but I know what I must do.")
+        introstage = [12,'waiting']
+    if introstage == 13:
+        dialogue(f"{playername}",f"(This guy is kind of freaking me out...)")
+        introstage = [13,'waiting']
+    if introstage == 14:
+        dialogue(f"{partnername}",f"What is it you must do, then?")
+        introstage = [14,'waiting']
+    if introstage == 15:
+        dialogue(f"???",f"I regret to say this; what I must do is to end your lives this instant.")
+        introstage = [15,'waiting']
+    if introstage == 16:
+        dialogue(f"{partnername}",f"T-The Shadow King??? But how?")
+        introstage = [16,'waiting']
+    if introstage == 17:
+        dialogue(f"{playername}",f"(Here he comes...)")
+        introstage = [17,'waiting']
+    if introstage == 18:
+        clearboard()
+        slowprintintroduction("""_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+        slowprint("The Shadow King draws near!")
+        time.sleep(1)
+        slowprint(f"{partnername}: Focus on defending! We've got to get away from here!")
+        stun = 0
+        combo = 0
+        incombat = True
+        additivecomborefresh = 1
+        additiverefresh = 0
+        enemies = 1
+        difficulty = 8
+        refreshrate = 0.6
+        speeduptimer = TimerEx(interval_sec=10,function=speedup,)
+        is_fake = True
+        battle = "Shadowking1"
+        while incombat == True:
+            if not speeduptimer.is_alive():
+                speeduptimer.start()
+            refreshspeedcontrol()
+        introstage = [18,'waiting']
 
 
 
