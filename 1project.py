@@ -30,6 +30,9 @@ def enemytired():
         tired = True
         message = "The enemy looks tired."
         clearenemyattacks()
+    if battle == "Shadowking1":
+        is_fake = False
+        message = "The Shadow King looks winded."
 
 
 def unstun():
@@ -477,6 +480,7 @@ def checkattack():
     global tired
     global additivecomborefresh
     global message
+    global refreshrate
     global kindness2
     reqkeys = currentline[2]
     if reqkeys == "01":
@@ -528,6 +532,8 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
+                if battle == "Shadowking1":
+                    refreshtimer = 0.6
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
         else:
@@ -539,6 +545,8 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
+                if battle == "Shadowking1":
+                    refreshtimer = 0.6
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
     if reqkeys == "11":
@@ -559,6 +567,8 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
+                if battle == "Shadowking1":
+                    refreshtimer = 0.6
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
 
@@ -599,6 +609,7 @@ def checkstun():
                     tiredtimer20.cancel()
                 if stuntimer.is_alive():
                     stuntimer.cancel()
+                time.sleep(5)
                 clear()
                 incombat = False
                 
@@ -799,13 +810,22 @@ def refreshspeedcontrol():
             if tired == True:
                 time.sleep((refreshrate + 0.2) / additivecomborefresh)
             else:
-                time.sleep(math.abs(refreshrate - additiverefresh)/ additivecomborefresh)
+                time.sleep(abs(refreshrate - additiverefresh)/ additivecomborefresh)
         elif stun == 1:
-            time.sleep(refreshrate - additiverefresh - 0.05)
+            try:
+                time.sleep(refreshrate - additiverefresh - 0.05)
+            except:
+                time.sleep(0.1)
         elif stun == 2:
-            time.sleep(refreshrate - additiverefresh - 0.05)
+            try:
+                time.sleep(refreshrate - additiverefresh - 0.05)
+            except:
+                time.sleep(0.1)
         elif stun == 3:
-            time.sleep(refreshrate - additiverefresh - 0.1)
+            try:
+                time.sleep(refreshrate - additiverefresh - 1)
+            except:
+                time.sleep(0.05)
 
 def endgame():
     clear()
@@ -847,7 +867,7 @@ startup = 0
 def speedup():
     global refreshrate
     if refreshrate > 0.1:
-        refreshrate = refreshrate - 1 
+        refreshrate = refreshrate - 0.1
 
 
 def gamestart():
@@ -969,6 +989,9 @@ while menu == "Main - Intro":
         if keyboard.is_pressed('x'):
             cancontinue = False
             introstage = introstage[0] + 1
+        if keyboard.is_pressed("u") and keyboard.is_pressed('i'):
+            cancontinue = False
+            introstage = 17
     if introstage == 1:
         gamestart()
         gamestart2()
@@ -1050,7 +1073,7 @@ while menu == "Main - Intro":
         dialogue(f"???",f"Ah. It seems Lady Fate smiles upon me today.")
         introstage = [10,'waiting']
     if introstage == 11:
-        dialogue(f"{partnername}",f"What do you want?")
+        dialogue(f"{partnername}",f"What do you want with us?")
         introstage = [11,'waiting']
     if introstage == 12:
         dialogue(f"???",f"That is a good question. My answer is that I know not what I want, but I know what I must do.")
@@ -1065,10 +1088,10 @@ while menu == "Main - Intro":
         dialogue(f"???",f"I regret to say this; what I must do is to end your lives this instant.")
         introstage = [15,'waiting']
     if introstage == 16:
-        dialogue(f"{partnername}",f"T-The Shadow King??? But how?")
+        dialogue(f"{partnername}",f"W-Why? No... It can't be!")
         introstage = [16,'waiting']
     if introstage == 17:
-        dialogue(f"{playername}",f"(Here he comes...)")
+        dialogue(f"{playername}",f"({partnername}? What are you talking about?)                    \n(Oh, never mind that, here he comes...)")
         introstage = [17,'waiting']
     if introstage == 18:
         clearboard()
@@ -1089,13 +1112,35 @@ while menu == "Main - Intro":
         speeduptimer = TimerEx(interval_sec=10,function=speedup,)
         is_fake = True
         battle = "Shadowking1"
+        jkl = 1
         while incombat == True:
             if not speeduptimer.is_alive():
                 speeduptimer.start()
             refreshspeedcontrol()
+        while incombat == False:
+            if jkl == 1:
+                jkl = 0
+                dialogue(f"{playername}",f"(Oh no. No. NO!)            \n(...Huh? I'm not dead?)")
         introstage = [18,'waiting']
-
-
+    if introstage == 19:
+        dialogue(f"The Shadow King",f"Ugh. Your friend here appears to have caught me off-guard. Well Played.")
+        introstage = [19,'waiting']
+    if introstage == 20:
+        extraslowprintintroduction("\n* The sound of a sword clanging against steel rings out.")
+        time.sleep(1)
+        introstage = 21
+    if introstage == 21:
+        dialogue(f"{partnername}",f"*Oww...*")
+        introstage = [21,'waiting']
+    if introstage == 22:
+        dialogue(f"The Shadow King",f"Oh well. I don't think I have enough energy left in myself to fight you again, so I'll have to just settle for your friend for now.\nIf you wish to rescue them, you may find me waiting in the Castle of Reflections.           \nFarewell, {playername}. I'm sure we will meet again.")
+        introstage = [22,'waiting']
+    if introstage == 23:
+        dialogue(f"{playername}",f"(Wait! {partnername}! No! I still don't know what all this is about!)")
+        introstage = [23,'waiting']
+    if introstage == 24:
+        dialogue(f"{partnername}",f"(Far off) {playername}! Never give up! Do your best, as always, okay?")
+        introstage = [24,'waiting']
 
 
 
