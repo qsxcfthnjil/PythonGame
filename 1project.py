@@ -995,6 +995,16 @@ while menu == "Main - Intro":
         if keyboard.is_pressed("u") and keyboard.is_pressed('i'):
             cancontinue = False
             introstage = 17
+        if keyboard.is_pressed("m") and keyboard.is_pressed('n'):
+            menu = 'maingame'
+            day = 1
+            revivalseeds = 0
+            progress = 0
+            menuselection = 0
+            inmenu = True
+            
+            slowprintintroduction(f"\n{playername}:\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+
     if introstage == 1:
         gamestart()
         gamestart2()
@@ -1149,6 +1159,60 @@ while menu == "Main - Intro":
     if introstage == 24:
         dialogue(f"{partnername}",f"(Far off) {playername}! Never give up! Do your best, as always, okay?")
         introstage = [24,'waiting']
+    if introstage == 25:
+        slowprintintroduction("\n...")
+        time.sleep(2)
+        slowprintintroduction(f"That night, {playername} decided to take a rest under a nearby tree, unsure of what was to come.\nEventually, {playername} drifted off into an uneasy slumber...")
+        time.sleep(3)
+        extraslowprintintroduction("\n...")
+        time.sleep(1)
+        dialogue(f"{playername}",f"(It's a new day... I have no idea what I need to do, or why I am here, but one thing's for sure:\nI need to rescue {partnername}!)")
+        introstage = [25,'waiting']
+    if introstage == 26:
+        menu = 'maingame'
+        day = 1
+        revivalseeds = 0
+        progress = 0
+        menuselection = 0
+        inmenu = True
+        
+        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+
+
+
+
+
+while menu == 'maingame':
+    if keyboard.is_pressed("Shift") and inmenu == True:
+        clear()
+        if menuselection == 0:
+            menuselection = 1
+            print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
+            time.sleep(0.2)
+        elif menuselection == 1:
+            menuselection = 2
+            print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\n> Forage\nRest\nSave\n(Use the control key to select)")
+            time.sleep(0.2)
+        elif menuselection == 2:
+            menuselection = 3
+            print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\n> Rest\nSave\n(Use the control key to select)")
+            time.sleep(0.2)
+        elif menuselection == 3:
+            menuselection = 1
+            print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
+            time.sleep(0.2)
+
+
+    if keyboard.is_pressed('Control'):
+        pass
+
+
+
+
+
+
+
+
 
 
 
