@@ -605,13 +605,16 @@ def checkstun():
                 clear()
                 slowprintintroduction("Bruh you died.")
             elif battle == "Shadowking1":
+                incombat = False
                 if tiredtimer20.is_alive():
                     tiredtimer20.cancel()
                 if stuntimer.is_alive():
                     stuntimer.cancel()
+                message = "..."
+                refresh()
                 time.sleep(5)
                 clear()
-                incombat = False
+
                 
     else:
         message = "Ah, you got hit!"
@@ -756,7 +759,7 @@ def extraslowprintintroduction(string):
         resultstring = resultstring + string[i]
         print(resultstring)
         i += 1
-        time.sleep(0.5)        
+        time.sleep(0.2)        
         
         
 
@@ -998,12 +1001,16 @@ while menu == "Main - Intro":
 
         extraslowprintintroduction("\n...")
         clear()
-        time.sleep(0.5)
-        extraslowprintintroduction("\n...")
-        clear()
-        time.sleep(2)
-        dialogue("???","Hey.")
-        introstage = [1,'waiting']
+        if keyboard.is_pressed("u") and keyboard.is_pressed('i'):
+            cancontinue = False
+            introstage = 17
+        else:
+            time.sleep(0.5)
+            extraslowprintintroduction("\n...")
+            clear()
+            time.sleep(2)
+            dialogue("???","Hey.")
+            introstage = [1,'waiting']
     if introstage == 2:
         dialogue("???",f"{playername}. {playername.upper()}! Wake up. Someone's coming.")
         introstage = [2, 'waiting']
@@ -1095,7 +1102,7 @@ while menu == "Main - Intro":
         introstage = [17,'waiting']
     if introstage == 18:
         clearboard()
-        slowprintintroduction("""_____________________________________________________________
+        slowprintintroduction("""\n_____________________________________________________________
 -------------D E F E N D-------------A T T A C K-------------
 ------------  A  S  K  L-------------   D  J    -------------""")
         slowprint("The Shadow King draws near!")
@@ -1121,7 +1128,8 @@ while menu == "Main - Intro":
             if jkl == 1:
                 jkl = 0
                 dialogue(f"{playername}",f"(Oh no. No. NO!)            \n(...Huh? I'm not dead?)")
-        introstage = [18,'waiting']
+                introstage = [18,'waiting']
+                break
     if introstage == 19:
         dialogue(f"The Shadow King",f"Ugh. Your friend here appears to have caught me off-guard. Well Played.")
         introstage = [19,'waiting']
