@@ -611,9 +611,19 @@ def checkstun():
                 if stuntimer.is_alive():
                     stuntimer.cancel()
                 message = "..."
+            elif battle == "Goblin":
+                incombat = False
+                if tiredtimer20.is_alive():
+                    tiredtimer20.cancel()
+                if stuntimer.is_alive():
+                    stuntimer.cancel()
+                message = "..."
                 refresh()
                 time.sleep(5)
                 clear()
+                extraslowprintintroduction(f"{playername} was felled by a Goblin on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                time.sleep(5)
+                quit()
 
                 
     else:
@@ -1003,7 +1013,7 @@ while menu == "Main - Intro":
             menuselection = 0
             inmenu = True
             
-            slowprintintroduction(f"\n{playername}:\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+            slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
 
     if introstage == 1:
         gamestart()
@@ -1117,7 +1127,7 @@ while menu == "Main - Intro":
 ------------  A  S  K  L-------------   D  J    -------------""")
         slowprint("The Shadow King draws near!")
         time.sleep(1)
-        slowprint(f"{partnername}: Focus on defending! We've got to get away from here!")
+        slowprint(f"{partnername}: \n> Focus on defending! We've got to get away from here!")
         stun = 0
         combo = 0
         incombat = True
@@ -1182,6 +1192,160 @@ while menu == "Main - Intro":
 
 
 
+
+def travel():
+    global progress
+    global day
+    global stun
+    global combo
+    global incombat
+    global additivecomborefresh
+    global additiverefresh
+    global enemies
+    global difficulty
+    global refreshrate
+    global is_fake
+    global battle
+    global cancontinue
+    if progress < 5:
+        progress += 1
+        day += 1
+        r = random.randint(1,4)
+        if r == 1:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along the well-worn path through a grassy plain...")
+            time.sleep(3)
+            slowprintintroduction("\nThankfully, you were able to find a place to rest as the night turned dark.")
+        if r == 2:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along a small stream...")
+            time.sleep(3)
+            slowprintintroduction("\nA small green creature jumps out from the water and blocks your path!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A goblin attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> Alright. Let's do this!")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 1
+            difficulty = 4
+            refreshrate = 0.6
+            is_fake = False
+            battle = "Goblin"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"Man, that was tough. But I need to keep going.")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+        if r == 3:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along the edge of a small forest...")
+            time.sleep(3)
+            slowprintintroduction("\nGah! It's an ambush!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A goblin gang attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> Ah shoot.")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 2
+            difficulty = 6
+            refreshrate = 0.5
+            is_fake = False
+            battle = "Goblin gang"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"Man, that was close!")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+        if r == 4:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along a small stream...")
+            time.sleep(3)
+            slowprintintroduction("\nA small green creature jumps out from the water and blocks your path!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A goblin attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> Alright. Let's do this!")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 1
+            difficulty = 4
+            refreshrate = 0.6
+            is_fake = False
+            battle = "Goblin"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"Man, that was tough. But I need to keep going.")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 while menu == 'maingame':
     if keyboard.is_pressed("Shift") and inmenu == True:
         clear()
@@ -1204,7 +1368,12 @@ while menu == 'maingame':
 
 
     if keyboard.is_pressed('Control'):
-        pass
+        if menuselection == 1:
+            travel()
+        if menuselection == 2:
+            pass
+        if menuselection == 3:
+            pass
 
 
 
