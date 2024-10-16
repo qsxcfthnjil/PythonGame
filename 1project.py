@@ -1319,6 +1319,8 @@ def travel():
     global is_fake
     global battle
     global cancontinue
+    global menu
+    menu = "Traveling"
     if progress < 5:
         progress += 1
         day += 1
@@ -1365,6 +1367,8 @@ def travel():
                     if keyboard.is_pressed('x'):
                         cancontinue = False
                         slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+                        time.sleep(2)
+                        menu = 'maingame'
         if r == 3:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
@@ -1401,6 +1405,8 @@ def travel():
                     if keyboard.is_pressed('x'):
                         cancontinue = False
                         slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+                        time.sleep(2)
+                        menu = 'maingame'
         if r == 4:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
@@ -1437,6 +1443,8 @@ def travel():
                     if keyboard.is_pressed('x'):
                         cancontinue = False
                         slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
+                        time.sleep(2)
+                        menu = 'maingame'
 
 
 
