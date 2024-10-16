@@ -150,6 +150,24 @@ message = "Do NOT let the X's hit the equals signs. you need to HOLD the button 
 def generateattack(count,difficulty):
     global nextline
     rngdifficulty = 10 - difficulty
+    if count == 2:
+        r = random.randint(1,5)
+        if r <= 3:
+            count = 1
+    if count == 3:
+        r = random.randint(1,5)
+        if r <= 1:
+            count = 1
+        elif r <= 3:
+            count = 2
+    if count == 4:
+        r = random.randint(1,5)
+        if r <= 1:
+            count = 1
+        elif r <= 3:
+            count = 2
+        elif r <= 4:
+            count = 3
     if rngdifficulty < random.randint(0,10):
         if count == 1:
             possibleattacks = ["1000","0001","0100","0010"]
@@ -461,10 +479,22 @@ def combospeedup():
     if combo == 3:
         additivecomborefresh = 1.1
     elif combo == 5:
+        if battle == "Goblin":
+            incombat = False
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
         additivecomborefresh = 1.2
     elif combo == 6:
         additivecomborefresh = 1.5
     elif combo == 7:
+        if battle == "Goblin gang":
+            incombat = False
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
         additivecomborefresh = 1.6
     elif combo == 8:
         additivecomborefresh = 1.7
@@ -624,6 +654,19 @@ def checkstun():
                 time.sleep(5)
                 clear()
                 extraslowprintintroduction(f"{playername} was felled by a Goblin on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                time.sleep(5)
+                quit()
+            elif battle == "Goblin gang":
+                incombat = False
+                if tiredtimer20.is_alive():
+                    tiredtimer20.cancel()
+                if stuntimer.is_alive():
+                    stuntimer.cancel()
+                message = "..."
+                refresh()
+                time.sleep(5)
+                clear()
+                extraslowprintintroduction(f"{playername} was suprised by a goblin ambush on day {day}.   \nBut you can't give up now! Who else will save the world?")
                 time.sleep(5)
                 quit()
 
