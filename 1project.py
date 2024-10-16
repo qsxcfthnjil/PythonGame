@@ -188,6 +188,8 @@ def generateattack(count,difficulty):
                 nextline = [">             X  *  X  X","1011","0"]
             elif nextattack == "1101":
                 nextline = [">             X  X  *  X","1101","0"]
+        elif count == 4:
+            nextline = [">             X  X  X  X","1111","0"]
     else:
         nextline = [">             *  *  *  *","0000","0"]
 
@@ -707,7 +709,74 @@ def checkdeath():
             kindness = 0
         if keyboard.is_pressed("k") or keyboard.is_pressed("l"):
             checkstun() 
-    
+    elif reqkeys == "1010":
+        if not (keyboard.is_pressed("a") and keyboard.is_pressed("k")):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("s") or keyboard.is_pressed("l"):
+            checkstun() 
+    elif reqkeys == "1001":
+        if not (keyboard.is_pressed("a") and keyboard.is_pressed("l")):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("s") or keyboard.is_pressed("k"):
+            checkstun() 
+    elif reqkeys == "0110":
+        if not (keyboard.is_pressed("s") and keyboard.is_pressed("k")):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("a") or keyboard.is_pressed("l"):
+            checkstun() 
+    elif reqkeys == "0101":
+        if not (keyboard.is_pressed("s") and keyboard.is_pressed("l")):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("a") or keyboard.is_pressed("k"):
+            checkstun() 
+    elif reqkeys == "0011":
+        if not (keyboard.is_pressed("k") and keyboard.is_pressed("l")):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("a") or keyboard.is_pressed("s"):
+            checkstun() 
+    elif reqkeys == "0111":
+        if not (keyboard.is_pressed("k") and keyboard.is_pressed("l") and keyboard.is_pressed('s')):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("a"):
+            checkstun() 
+    elif reqkeys == "1011":
+        if not (keyboard.is_pressed("a") and keyboard.is_pressed("l") and keyboard.is_pressed('k')):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("s"):
+            checkstun() 
+    elif reqkeys == "1101":
+        if not (keyboard.is_pressed("a") and keyboard.is_pressed("l") and keyboard.is_pressed('s')):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("k"):
+            checkstun() 
+    elif reqkeys == "1110":
+        if not (keyboard.is_pressed("k") and keyboard.is_pressed("a") and keyboard.is_pressed('s')):
+            checkstun()
+        else:
+            kindness = 0
+        if keyboard.is_pressed("l"):
+            checkstun() 
+    elif reqkeys == "1111":
+        if not (keyboard.is_pressed("k") and keyboard.is_pressed("a") and keyboard.is_pressed('s') and keyboard.is_pressed('l')):
+            checkstun()
+        else:
+            kindness = 0
 
 
 
