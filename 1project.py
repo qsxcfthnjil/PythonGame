@@ -25,7 +25,12 @@ def enemytired():
     global is_fake
     global tired
     global message
-    if intutorial == False and not battle == "Shadowking1":
+    if battle == "Goblin gang":
+        is_fake = False
+        tired = True
+        message = "The goblins have a gap in their formation!"
+        clearenemyattacks()
+    elif intutorial == False and not battle == "Shadowking1":
         is_fake = False
         tired = True
         message = "The enemy looks tired."
@@ -490,11 +495,12 @@ def combospeedup():
         additivecomborefresh = 1.5
     elif combo == 7:
         if battle == "Goblin gang":
-            incombat = False
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
                 stuntimer.cancel()
+            time.sleep(2)
+            incombat = False
         additivecomborefresh = 1.6
     elif combo == 8:
         additivecomborefresh = 1.7
@@ -514,6 +520,7 @@ def checkattack():
     global message
     global refreshrate
     global kindness2
+    global refreshtimer
     reqkeys = currentline[2]
     if reqkeys == "01":
         if keyboard.is_pressed('j'):
@@ -948,7 +955,7 @@ def refreshspeedcontrol():
                 time.sleep(0.1)
         elif stun == 3:
             try:
-                time.sleep(refreshrate - additiverefresh - 1)
+                time.sleep(refreshrate - additiverefresh - 0.1)
             except:
                 time.sleep(0.05)
 
@@ -1319,57 +1326,79 @@ def travel():
     global is_fake
     global battle
     global cancontinue
+    global inmenu
     global menu
+    global revivalseeds
     menu = "Traveling"
     if progress < 5:
         progress += 1
         day += 1
-        r = random.randint(1,4)
+        r = random.randint(1,7)
         if r == 1:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
             slowprintintroduction("\nYou travel along the well-worn path through a grassy plain...")
             time.sleep(3)
             slowprintintroduction("\nThankfully, you were able to find a place to rest as the night turned dark.")
-        if r == 2:
+        elif r == 2:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
-            slowprintintroduction("\nYou travel along a small stream...")
+            slowprintintroduction("\nYou make your way across a valley nestled between two hills...")
             time.sleep(3)
-            slowprintintroduction("\nA small green creature jumps out from the water and blocks your path!")
-            time.sleep(3)
-            clearboard()
-            slowprintintroduction("""\n_____________________________________________________________
--------------D E F E N D-------------A T T A C K-------------
-------------  A  S  K  L-------------   D  J    -------------""")
-            slowprint("A goblin attacks!")
-            time.sleep(1)
-            slowprint(f"{playername}: \n> Alright. Let's do this!")
-
-            stun = 0
-            combo = 0
-            incombat = True
-            additivecomborefresh = 1
-            additiverefresh = 0
-            enemies = 1
-            difficulty = 4
-            refreshrate = 0.6
-            is_fake = False
-            battle = "Goblin"
-            jkl = 1
-            while incombat == True:
-                refreshspeedcontrol()
-            while incombat == False:
-                if jkl == 1:
-                    jkl = 0
-                    dialogue(playername,"Man, that was tough. But I need to keep going.")
+            indialogue = True
+            dialogueprogress = 0
+            dialogue("???","...")
+            while indialogue == True:
                 if cancontinue == True:
                     if keyboard.is_pressed('x'):
-                        cancontinue = False
-                        slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
-                        time.sleep(2)
-                        menu = 'maingame'
-        if r == 3:
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"...They're right behind me, arent they.")
+                        elif dialogueprogress == 1:
+                            indialogue = False
+
+                        
+
+
+                            time.sleep(3)
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint("A thief sneakily attacks!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> Gah!")
+
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 1
+                            difficulty = 6
+                            refreshrate = 0.45
+                            is_fake = False
+                            battle = "Thief"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,"Yikes! I think they're dead, whoever they are...")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"Digging around in the theif's bag, {playername} found one Revive Seed!")
+                                        revivalseeds += 1
+                                        time.sleep(2)
+                                        slowprintintroduction(f"{playername} decided to call it a day.")
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        break
+        elif r == 3:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
             slowprintintroduction("\nYou travel along the edge of a small forest...")
@@ -1407,7 +1436,70 @@ def travel():
                         slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
                         time.sleep(2)
                         menu = 'maingame'
-        if r == 4:
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        break
+
+
+        elif r == 4:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou walk into a cave leading into the earth, for some reason.")
+            time.sleep(3)
+            slowprintintroduction("\nEerie noises fill the air around you as you begin to struggle to breathe.")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("Azargorith, Watcher of the Abyss approaches...")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> What the actual hell did I get myself into?!")
+            time.sleep(1)
+            slowprint(f"Your heart is pounding.")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 1
+            difficulty = 8
+            refreshrate = 0.4
+            is_fake = False
+            battle = "Abyss"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"How in the world did I survive that?")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"You found two Revive seeds!")
+                        revivalseeds += 2
+                        time.sleep(2)
+                        slowprintintroduction(f"Stumbling out of the cave, {playername} found a place to rest and slept the night away soundly.")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        break
+
+
+
+
+
+
+
+
+
+
+
+
+        else:
             slowprintintroduction("...\n...\n...\n...")
             time.sleep(2)
             slowprintintroduction("\nYou travel along a small stream...")
@@ -1445,6 +1537,10 @@ def travel():
                         slowprintintroduction(f"Exausted, {playername} found a place to rest and slept the night away soundly.")
                         time.sleep(2)
                         menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        break
+
 
 
 
@@ -1490,6 +1586,7 @@ while menu == 'maingame':
     if keyboard.is_pressed('Control'):
         if menuselection == 1:
             travel()
+            inmenu = False
         if menuselection == 2:
             pass
         if menuselection == 3:
