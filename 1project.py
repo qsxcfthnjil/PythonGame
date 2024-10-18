@@ -15,6 +15,8 @@ kindness2 = 0
 stun = 0
 tired = False
 intutorial = False
+oranberries = 0
+revivalseeds = 0
 
 def resettotutorialmessage():
     global message
