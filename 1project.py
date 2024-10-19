@@ -638,6 +638,7 @@ def checkstun():
     global tiredtimer20
     global combo
     global oranberries
+    global revivalseeds
     if oranberries > 0:
         oranberries -= 1
         message = "You ate an Oran Berry and recovered from a stunnning attack!"
@@ -660,7 +661,16 @@ def checkstun():
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
             else:
-                if battle == "tutorial/test":
+                if revivalseeds >= 1:
+                    message = "Your bag lights up as one Revive Seed is consumed."
+                    revivalseeds -= 1
+                    stun = 0
+                    combo = 0
+                    is_fake = True
+                    Tired = False
+                    clearattacks()
+                    
+                elif battle == "tutorial/test":
                     incombat = False
                     clear()
                     slowprintintroduction("Bruh you died.")
@@ -917,7 +927,7 @@ def dialogue(name,string):
             cancontinue = True
         else:
             print(resultstring)
-        time.sleep(0.05)
+        time.sleep(0.015)
 
 
 def cutscene(string):
