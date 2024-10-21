@@ -957,7 +957,7 @@ def extraslowprintintroduction(string):
         resultstring = resultstring + string[i]
         print(resultstring)
         i += 1
-        time.sleep(0.2)        
+        time.sleep(0.05)        
         
         
 
@@ -971,7 +971,7 @@ def slowprint(string):
         message = resultmessage
         i += 1
         refresh()
-        time.sleep(0.05)
+        time.sleep(0.02)
 
 
 
@@ -1404,7 +1404,127 @@ def travel():
     global menuselection
     menuselection = 0
     menu = "Traveling"
-    if progress < 5:
+    if progress == 5:
+        progress += 1
+        slowprintintroduction("...\n...\n...\n...")
+        time.sleep(2)
+        slowprintintroduction("\nYou make your way across a cobblestone path...")
+        time.sleep(3)
+        indialogue = True
+        dialogueprogress = 0
+        dialogue(playername,"Hey, I think I see something in the distance!")
+        while indialogue == True:
+            if cancontinue == True:
+                if keyboard.is_pressed('x'):
+                    if dialogueprogress == 0:
+                        dialogueprogress = 1
+                        dialogue(playername,"(Finally! I think I can see the City ahead!)")
+                    elif dialogueprogress == 1:
+                        dialogueprogress = 2
+                        cutscene("""                                  _._
+                               .-~ | ~-.
+                               |   |   |
+                               |  _:_  |                    .-:~--.._
+                             .-"~~ | ~~"-.                .~  |      |
+            _.-~:.           |     |     |                |   |      |
+           |    | `.         |     |     |                |   |      |
+  _..--~:-.|    |  |         |     |     |                |   |      |
+ |      |  ~.   |  |         |  __.:.__  |                |   |      |
+ |      |   |   |  |       .-"~~   |   ~~"-.              |   |      |
+ |      |   |  _|.--~:-.   |       |       |         .:~-.|   |      |
+ |      |   | |      |  ~. |       |   _.-:~--._   .' |   |   |      |
+ |      |   | |      |   | |       |  |   |     |  |  |   |   |      |
+ |      |   | |      |   | |       |  |   |     |  |  |   |   |      |
+ |      |   | |      |   | |       |  |   |     |  |  |   |   |      |
+ |      |   | |      |   | |       |  |   |     |  |  |   |   |      |
+ |      |   | |      |   | |       |  |   |     |  |  |   |   |      |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""")
+                    elif dialogueprogress == 2:
+                        dialogueprogress = 3
+                        dialogue("???","...")
+                    elif dialogueprogress == 3:
+                        dialogueprogress = 4
+                        dialogue(playername,"(Huh? Who's there? Show yourself!)")
+                    elif dialogueprogress == 4:
+                        dialogueprogress = 5
+                        dialogue("???","Perceptive, are you now?")
+                    elif dialogueprogress == 5:
+                        dialogueprogress = 6
+                        dialogue("???","We are the guardian of this path. Shall you pass, you must pay an ample fee.      \nTwenty gold pieces, nay more, nor less.")
+                    elif dialogueprogress == 6:
+                        dialogueprogress = 7
+                        dialogue(playername,"So, it's like a tax or something...?")
+                    elif dialogueprogress == 7:
+                        dialogueprogress = 8
+                        dialogue("???","No, idiot, we're robbing you.")
+                    elif dialogueprogress == 8:
+                        dialogueprogress = 9
+                        dialogue(playername,"Oh...")
+                    elif dialogueprogress == 9:
+                        indialogue = False
+
+                    
+                        clearboard()
+                        slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                        slowprint("The bandit gang surrounds you!")
+                        time.sleep(1)
+                        slowprint(f"{playername}: \n> So, I've got {revivalseeds} Revive Seeds and {oranberries} Oran Berries- ")
+                        slowprint(f"Bandit Leader:\n> Quit monologuing, lad!")
+                        stun = 0
+                        combo = 0
+                        incombat = True
+                        additivecomborefresh = 1
+                        additiverefresh = 0
+                        enemies = 4
+                        difficulty = 6
+                        refreshrate = 0.4
+                        is_fake = False
+                        battle = "Bandit Gang"
+                        jkl = 1
+                        while incombat == True:
+                            refreshspeedcontrol()
+                        while incombat == False:
+                            if jkl == 1:
+                                jkl = 0
+                                dialogue(playername,f"Phew! The path ahead is clear. {partnername}, wait a bit longer, I'm coming!")
+                            if cancontinue == True:
+                                if keyboard.is_pressed('x'):
+                                    cancontinue = False
+                                    slowprintintroduction(f"You gained two revive seeds and two oran berries!")
+                                    revivalseeds += 2
+                                    oranberries += 2
+                                    time.sleep(2)
+                                    print("""
+                  ______ _                    _______                _____ _ _                  __   _   _           __      __   _     _               
+                 |  ____| |                  |__   __|          _   / ____(_) |                / _| | | | |          \ \    / /  (_)   | |              
+  ______ ______  | |__  | | ___   ___  _ __     | |_      _____(_) | |     _| |_ _   _    ___ | |_  | |_| |__   ___   \ \  / /__  _  __| |______ ______ 
+ |______|______| |  __| | |/ _ \ / _ \| '__|    | \ \ /\ / / _ \   | |    | | __| | | |  / _ \|  _| | __| '_ \ / _ \   \ \/ / _ \| |/ _` |______|______|
+                 | |    | | (_) | (_) | |       | |\ V  V / (_) |  | |____| | |_| |_| | | (_) | |   | |_| | | |  __/    \  / (_) | | (_| |              
+                 |_|    |_|\___/ \___/|_|       |_| \_/\_/ \___(_)  \_____|_|\__|\__, |  \___/|_|    \__|_| |_|\___|     \/ \___/|_|\__,_|              
+                                                                                  __/ |                                                                 
+                                                                                 |___/                                                                  
+""")
+                                    time.sleep(0.5)
+                                    clear()
+                                    print("""
+                ______ _                    _____                _____ _ _                  __   _   _            _   _       _     _               
+                |  ___| |                  |_   _|           _  /  __ (_) |                / _| | | | |          | | | |     (_)   | |              
+ ______ ______  | |_  | | ___   ___  _ __    | |_      _____(_) | /  \/_| |_ _   _    ___ | |_  | |_| |__   ___  | | | | ___  _  __| |______ ______ 
+|______|______| |  _| | |/ _ \ / _ \| '__|   | \ \ /\ / / _ \   | |   | | __| | | |  / _ \|  _| | __| '_ \ / _ \ | | | |/ _ \| |/ _` |______|______|
+                | |   | | (_) | (_) | |      | |\ V  V / (_) |  | \__/\ | |_| |_| | | (_) | |   | |_| | | |  __/ \ \_/ / (_) | | (_| |              
+                \_|   |_|\___/ \___/|_|      \_/ \_/\_/ \___(_)  \____/_|\__|\__, |  \___/|_|    \__|_| |_|\___|  \___/ \___/|_|\__,_|              
+                                                                              __/ |                                                                 
+                                                                             |___/                                                                  
+""")
+                                    time.sleep(2)
+                                    menu = 'maingame'
+                                    inmenu = True
+                                    slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Welcome to Floor Two!)")
+                                    break
+
+    elif progress < 5:
         progress += 1
         day += 1
         r = random.randint(1,7)
@@ -1942,7 +2062,6 @@ while menu == 2:
 
     
     
-
 
 
 
