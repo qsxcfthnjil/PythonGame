@@ -483,6 +483,7 @@ def combospeedup():
     global incombat
     global additivecomborefresh
     global message
+    global battle
 
     if combo == 3:
         additivecomborefresh = 1.1
@@ -546,8 +547,9 @@ def checkattack():
     reqkeys = currentline[2]
     if reqkeys == "01":
         if keyboard.is_pressed('j') and not keyboard.is_pressed('d'):
-            message = "HIT! Combo X" + str(combo)
             combo = combo + 1
+            message = "HIT! Combo X" + str(combo)
+
             combospeedup()
             tired = True
             kindness2 = 0
@@ -566,8 +568,8 @@ def checkattack():
                     tiredtimer20.start()
     if reqkeys == "10":
         if keyboard.is_pressed('d') and not keyboard.is_pressed('j'):
-            message = "HIT! Combo X" + str(combo)
             combo = combo + 1
+            message = "HIT! Combo X" + str(combo)
             combospeedup()
             tired = True
             kindness2 = 0
@@ -588,8 +590,8 @@ def checkattack():
                     tiredtimer20.start()
     if reqkeys == "11":
         if keyboard.is_pressed('d') and keyboard.is_pressed('j'):
-            message = "HIT! Combo X" + str(combo)
             combo = combo + 1
+            message = "HIT! Combo X" + str(combo)
             tired = True
             kindness2 = 0
             combospeedup()
@@ -667,8 +669,8 @@ def checkstun():
                     stun = 0
                     combo = 0
                     is_fake = True
-                    Tired = False
-                    clearattacks()
+                    tired = False
+                    clearenemyattacks()
                     
                 elif battle == "tutorial/test":
                     incombat = False
@@ -691,7 +693,7 @@ def checkstun():
                     refresh()
                     time.sleep(5)
                     clear()
-                    extraslowprintintroduction(f"{playername} was felled by a Goblin on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                    extraslowprintintroduction(f"{playername} was felled by a Goblin on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                 elif battle == "Goblin gang":
@@ -704,7 +706,7 @@ def checkstun():
                     refresh()
                     time.sleep(5)
                     clear()
-                    extraslowprintintroduction(f"{playername} was suprised by a goblin ambush on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                    extraslowprintintroduction(f"{playername} was suprised by a goblin ambush on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                 elif battle == "Thief":
@@ -717,7 +719,7 @@ def checkstun():
                     refresh()
                     time.sleep(5)
                     clear()
-                    extraslowprintintroduction(f"{playername} was ended by a thief on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                    extraslowprintintroduction(f"{playername} was ended by a thief on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                 elif battle == "Abyss":
@@ -730,7 +732,7 @@ def checkstun():
                     refresh()
                     time.sleep(5)
                     clear()
-                    extraslowprintintroduction(f"{playername} took a wrong turn and stumbled into the abyss on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                    extraslowprintintroduction(f"{playername} took a wrong turn and stumbled into the abyss on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                 elif battle == "Monster House":
@@ -743,7 +745,20 @@ def checkstun():
                     refresh()
                     time.sleep(5)
                     clear()
-                    extraslowprintintroduction(f"{playername} attempted to fight a monster house without a petrify orb on day {day}.   \nBut you can't give up now! Who else will save the world?")
+                    extraslowprintintroduction(f"{playername} attempted to fight a monster house without a petrify orb on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Bandit Gang":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was so close to floor 2! However, {playername} was ultimately defeated by a bandit gang on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                     
@@ -927,7 +942,7 @@ def dialogue(name,string):
             cancontinue = True
         else:
             print(resultstring)
-        time.sleep(0.015)
+        time.sleep(0.007)
 
 
 def cutscene(string):
@@ -957,7 +972,7 @@ def extraslowprintintroduction(string):
         resultstring = resultstring + string[i]
         print(resultstring)
         i += 1
-        time.sleep(0.05)        
+        time.sleep(0.03)        
         
         
 
@@ -971,7 +986,7 @@ def slowprint(string):
         message = resultmessage
         i += 1
         refresh()
-        time.sleep(0.02)
+        time.sleep(0.015)
 
 
 
@@ -984,6 +999,9 @@ def refreshspeedcontrol():
     global additiverefresh
     global is_fake
     global incombat
+    global combo
+    if combo == 0:
+        additivecomborefresh = 1
     if stun == 0:
         generateattack(enemies,difficulty)
         additiverefresh = 0
@@ -991,17 +1009,17 @@ def refreshspeedcontrol():
         if difficulty < 10:
             generateattack(enemies,difficulty + 1)      
         else:
-            additiverefresh = 0.02 
+            additiverefresh = 0.01 
     elif stun == 2:
         if difficulty < 9:
             generateattack(enemies,difficulty + 2)  
         else:
-            additiverefresh = 0.05
+            additiverefresh = 0.03
     elif stun == 3:
         if difficulty < 8:
             generateattack(enemies,difficulty + 3)  
         else:
-            additiverefresh = 0.1
+            additiverefresh = 0.05
     generateslash(is_fake)
     connectattackdef()
     shiftlines()
@@ -1014,19 +1032,19 @@ def refreshspeedcontrol():
                 time.sleep(abs(refreshrate - additiverefresh)/ additivecomborefresh)
         elif stun == 1:
             try:
-                time.sleep(refreshrate - additiverefresh - 0.05)
+                time.sleep(refreshrate - additiverefresh - 0.01)
             except:
-                time.sleep(0.1)
+                time.sleep(0.15)
         elif stun == 2:
             try:
+                time.sleep(refreshrate - additiverefresh - 0.02)
+            except:
+                time.sleep(0.12)
+        elif stun == 3:
+            try:
                 time.sleep(refreshrate - additiverefresh - 0.05)
             except:
                 time.sleep(0.1)
-        elif stun == 3:
-            try:
-                time.sleep(refreshrate - additiverefresh - 0.1)
-            except:
-                time.sleep(0.05)
 
 def endgame():
     clear()
@@ -1479,7 +1497,7 @@ def travel():
                         additiverefresh = 0
                         enemies = 4
                         difficulty = 6
-                        refreshrate = 0.4
+                        refreshrate = 0.5
                         is_fake = False
                         battle = "Bandit Gang"
                         jkl = 1
@@ -1523,6 +1541,23 @@ def travel():
                                     inmenu = True
                                     slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Welcome to Floor Two!)")
                                     break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     elif progress < 5:
         progress += 1
@@ -1736,6 +1771,130 @@ def travel():
                         inmenu = True
                         slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
                         break
+
+
+
+    elif progress < 10:
+        progress += 1
+        day += 1
+        r = random.randint(1,7)
+        if r == 1:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through a busy marketplace, bustling with commotion...")
+            time.sleep(3)
+            slowprintintroduction("\nThankfully, you weren't noticed by any guards and passed through without any trouble.")
+            time.sleep(2)
+            menu = 'maingame'
+            inmenu = True
+            slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+        elif r == 2:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou make your way past a busy marketplace, bustling with commotion...")
+            time.sleep(3)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue("???","Halt right there! Who are you? Identify thyself immediately!")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"Uh. I'm just a regular citizen of the city...?")
+                        elif dialogueprogress == 1:
+                            indialogue = False
+
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint("The Royal Guard attacks!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> Yikes!")
+
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 1
+                            difficulty = 8
+                            refreshrate = 0.6
+                            is_fake = False
+                            battle = "Guard"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,"Phew! Time to get outta here before more show up...")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"{playername} decided to call it a day.")
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        break
+
+
+
+
+
+
+
+
+
+        elif r == 3:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along a dark alleyway, trying to keep hidden from sight...")
+            time.sleep(3)
+            slowprintintroduction("\nGah! It's an ambush!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A gang of thieves attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> Ah shoot. At least they don't look as bad as that other gang I faced on my way to the city...")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 3
+            difficulty = 6
+            refreshrate = 0.5
+            is_fake = False
+            battle = "Robber Gang"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"That was tough! I did get some free berries from them though. Time to get moving...")
+                    oranberries += 2
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"{playername} laid low for the rest of the day.")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        break
+
+
+
+
 
 
 
