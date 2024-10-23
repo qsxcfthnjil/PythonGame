@@ -489,14 +489,22 @@ def combospeedup():
         additivecomborefresh = 1.1
     elif combo == 5:
         if battle == "Goblin":
-            incombat = False
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
                 stuntimer.cancel()
+            time.sleep(2)
+            incombat = False
         additivecomborefresh = 1.2
     elif combo == 6:
         additivecomborefresh = 1.3
+        if battle == "Curse":
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
+            time.sleep(2)
+            incombat = False
     elif combo == 7:
         if battle == "Goblin gang":
             if tiredtimer20.is_alive():
@@ -512,6 +520,13 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
+        elif battle == "Guard":
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
+            time.sleep(2)
+            incombat = False
         additivecomborefresh = 1.4
     elif combo == 8:
         if battle == "Monster House":
@@ -521,10 +536,23 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
-        additivecomborefresh = 1.6
+        additivecomborefresh = 1.5
     elif combo == 9:
-        additivecomborefresh = 1.8
+        additivecomborefresh = 1.6
     elif combo == 10:
+        pass
+    elif combo == 11:
+        additivecomborefresh = 1.7
+        if battle == "Void" or "Abyss":
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
+            time.sleep(2)
+            incombat = False   
+    
+    
+    elif combo == 12:
         if tiredtimer20.is_alive():
             tiredtimer20.cancel()
         if stuntimer.is_alive():
@@ -759,6 +787,45 @@ def checkstun():
                     time.sleep(5)
                     clear()
                     extraslowprintintroduction(f"{playername} was so close to floor 2! However, {playername} was ultimately defeated by a bandit gang on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Robber Gang":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was mugged by a gang on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Guard":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was slain by a guard on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Void":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} stumbled into a sealed sanctuary on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                     
@@ -1489,6 +1556,7 @@ def travel():
                         slowprint("The bandit gang surrounds you!")
                         time.sleep(1)
                         slowprint(f"{playername}: \n> So, I've got {revivalseeds} Revive Seeds and {oranberries} Oran Berries- ")
+                        time.sleep(1)
                         slowprint(f"Bandit Leader:\n> Quit monologuing, lad!")
                         stun = 0
                         combo = 0
@@ -1892,8 +1960,112 @@ def travel():
                         slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
                         break
 
+        elif r == 4:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou make your way across a dimly lit street...")
+            time.sleep(3)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue(playername,"(I'm... going to have to cut through that ominous building, aren't I?)")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"(I- I can't breathe??)")
+                        elif dialogueprogress == 1:
+                            dialogueprogress = 2
+                            dialogue(playername,"(It's like the air itself is choking me...)")
+                        elif dialogueprogress == 2:
+                            dialogueprogress = 3
+                            dialogue("???","w̷̪͚̜̼͉̦̖̄͜h̵̡̤̬̠͚̬̼̦͉̆̐̈́o̶͔͚̹̭͍͍̤͉̼͂̆̃̎̏ ̴̡̡̱̮̘̲̪̦̈́ḑ̸̫͗͑̄̒a̶̧͇̥̱̅́̀̄̍̍͑̈̕ͅr̴̢̝̹͉̀͆̍͋̌̈́̆͝e̴̗̘͔͂̎͂͋̄̍̒͂s̵̩̫̎̕ͅͅ ̸̛̖͕̂͑̆̂ḯ̵̪̳̪̓̕̚͝n̴͙͚̪̥͎̟̑t̵̺̳͔̙̘̰͈͒̄͆̒̽̈́r̵̛͇͉̥͍͔̰̗͒̐̈̈́͆͝ͅu̴̜̱̲̗͚̱̬͆̊̀̽ͅd̷̢̙̦̻̱̟̜̙͚̊͊̋̇̽̚͜͝͝e̴̖̺̫̲͆̈͐͐ ̵͍͉̀̆͌̽̊͒̋͠ͅu̴̧͔̓͋̓̽͘͝p̵̪̼̞̘̲̱͈̙̄̀̅̏͜o̸̞̼͕̹̯̝͙͐̌̿̀̒n̸͓͓̺̜̖̠̞͙̱̈͗̓͌̈́͛̈́ ̵̮͉̬͌̃͌̀̔͛̅̂͜m̵̖̼̓́̋́͝͠ÿ̸̛̙́̎̍ ̷̢̫̘̬̣̝̩̭̘̤͊̿͊͝d̸̠̻̈́̔̑̾̆̕͝͝ờ̵̗̣̭̱̤̯̰̲̺̎̈̈́m̶̡̤͇͕̫͚̬̰̩̅ḁ̷̧̰̠͛͐̊̈́̅͐̐̈́ì̴̢͍͔̫̣͖͇̟͈̍̎̇ñ̴̻̟̥͛͆̄̌̐?̵̡͔͎̐̊͆̄̍͝")
+                        elif dialogueprogress == 3:
+                            dialogueprogress = 4
+                            dialogue(playername,"(Oh man.)")
+                        elif dialogueprogress == 4:
+                            dialogueprogress = 5
+                            dialogue("???","ạ̶̤̺͇͊͝m̵͈̻̣͇͆ơ̴̭͈͑̇̑͒̏n̶͎̻̩͚̰̿̈̾̀̊͑̕̕ġ̸̥̦̼̻̂̽̄̅͌̓s̸͍͒̀ţ̵̖̜͚͓̫̙̮̖̠̾͂̓̀͂̇ ̴͉͙͇̒͆t̴͙͇̖̻̭͐̕̚h̸̨͉̪̩́̽̈̿͗͑͠͝ȓ̶̤̳͎̓̇̎ͅo̴̥̞̻̯̮͇̜͍̅͆͠ư̸͚̱͉̞̪̜͊̍̿̾̈́̅g̷̛̦͉̳̲̲͋̕ḩ̴̧̳̦̝͕͔̪͇͎̒͛̽ǒ̴͔̤̮̜̙̓͑̈̓͂̇͌͘ư̸̝̗͓̞̩̏t̵̰͕̪̤̓͝͝ͅ ̸̧͖͖͎̞̹̞̅͗̌̑͗̿̌̃̔͠t̸̨̢̛̮̪̺̤̭͂̓̌̈́͠h̵͕̀̂̈́͌e̸̡̡͚̬̞̯͙͂̏ ̸̘̦̣̜̠̜̌ͅw̴̢̫͊o̷͕͓̱̼͌̆͗̓̿̀̚͝͝ř̸͉̮̰͔̹̈̆̄̃̉͜l̶̺͕͈͎̤̪̇̿̾͂̿̊̐́͑d̷̫̯̯̍̍͊̌͆̌͒̅ ̷̧̢̧̼̩͎͎̰̞̐̊̈́ǫ̸̨͉̬̺̥͈̯͈̱͒́f̶̥̀̽̏͌̈́̃̒́̈̕ ̷̧̻͓̤̲̦̙͓̯̃̊̈͂̈̑̐̈́̾͜͝ľ̴̞̑̑́̃̽̏̃̚͘ì̵̼̬̣͚̣̞̫̭̐̑̈́̽̆̃̒͝ḛ̴̪͐̽͘͝͝s̶͙͚̙̳̱̞̤̥͖̖̈ ̶̞͍̥̝̙̤̇̈́̋̏̈̏̃͑̅ä̸̢̛̺̭̯̰͉̺̾̂̃͜͠ḿ̸̡̻̹͙̬̩̩̼̔͑̐b̷̨̨̧̫̝̐̈́̎̎ȋ̸̛̬̬̟̬̭̳͋͑̒͊̕t̷͚̯͔̺͖̊̀ḯ̴̲̫͇͚͗͑̂̌̏̈́̉͑͘o̸̡̱̼̓̏̓̽̋͆ͅn̴̼͌͂ ̸̤̬͈͓̱̔̈́̽̍͘͝e̶̛͕͇̐̏́͊͋̅͠n̸̛̦̪̺̉̃͛̌̂͂̾̕d̵͚̩͈͚̲̠͉̝͊͌͊̈́͐̎̽̎͠ï̵̡̼͕̩̏̈́̀̓͋n̶̹͍̥͖͚̅̄̆̚̚g̷̨̧̖͎̣̜̗͚͍͑̏̓̈́͌͊̏̆̈́̔ͅ ̷̳̤͛̆̔̇͌̉̏̐̚͘f̴̮̤̣͎̼̎̾͂̅̑̚͘o̶̡͉̬̺͚̞͇͋̉̀̽͋̔̀̽̕͜ř̴̨̛͂͋́e̴̢̗̱͍͇̥̳̣͍̿̀͛̀͘̚͜͝͝ṽ̴̛̛̱͚͎̟͑͛͆̇́͗͝ȩ̸̡̻̠̙̞̪̳͓̻̄̈́͋̀̈́̂͗r̸̂̐ͅm̸̡̤͖̼̼͖̩̖̔̃̋̿̃̾̑͂̌̕o̶̱͎̺͖͙̻̞͔̐̾̑̉r̸̹̄e̸̙͇͉͉̞̻̺̹͋ͅ ̵̯̖̙̩̪̤͈͍̖̹̃̾̈́a̴̘̖̙̞̜̰̽̔̄̑͌̐̇n̴̛͈̳̬̅͗̚͝d̴͖͖̩̮̲̜̈̓̍ ̶̡̧̳͔̮͔̮̰̦̐̓ṫ̶̢̐͗̓͗̿͘̚͘͘h̵͇̲̺̦̜̎̈́̐͝͠ẹ̸̎̃́̋͌͘͠ ̸̡̩̹̰͇̙̙̮͇̦͊w̸̝̯̱͎͓̭͆͗͂͒̈̎͘h̵̟̘͕̮̞̗̤̳̣̽̀̍̆́͜͝ĩ̴͖̩͔͝m̸̪̅͗͋̄̆̊̄̌̕s̶̘̰͙̹̤̭͍̬̺͠ͅ ̶̥͓͑͊̋̄̓͆̀͂ǫ̴̠̩̞͔̣̳̠͐́̅͋̀̒͘͜͝f̷̨̔́͑̓͗̃̓̌̅͝ ̴̨̨̧̼̙̥̮͖͗͊̑̎̽̾͐̀͌͜͜͠ţ̴͈̠̻̦̲̟̼̌͋̅̃͂͘͝͝ḧ̴̡̨͎̩̮͇̞̻͇̘́e̶̡͈͎̬̮̜̞̠̓̍̍̀͝ ̶̦̣̲̟̯̙̥͖̺̞̈́̐̅̔̅͘ā̸̘̱̱̩̠̻̪̰̩͆̽̈͋̾̄̓b̵̢͍͓̜͖̝͉̥̺̅̐̊̃ͅy̷͖̰̳̥͔̐͂͊̚s̵̨̢͖̝͉͙͍̠̀̑̽͐̎́s̷̛̘̤͓̫̒̆̾͌̔̆̇͝ ̸̢̧̬̻̟̯̉͜o̷̠̝͈̰̜̲̔͑̃f̷̢̣̙̭̘̙͙̐̅̐̓̿͝ ̴̛̝͉́̌͜t̶̡̀̐͂̉̃͝h̷̡̢͎̥͇̼̝̜̾̓̎͜͝ȩ̷̝̤̖̍̀̆̔́͌́͒ ̴̛̦̰͓͚̞̹̍̈́̎̏̏̇̂̍ͅv̷̨̢̯͉̓̐͋͒̓͛̓͜͝͝ő̷̬̺̓̂͗́̒i̷̢͇̙͔͉̬̘̟͖̔͆̒̉̆͘͘͜d̸̺̟̎̇̓̾͋͂̆̾̕̚ ̷͉̮̞͛̂̍̈́̋̉a̴̛̝̦͕̜͛̾̀̊́͝ņ̵̡̠͕̪̲̲͌̆̾͊̔͐̀̿̂͝d̴̢͎͇͖̏̈̇ ̴̺̞̟̜̥̑̀̀͗̽͗̀͗̇̾ṱ̸̬̞̮̱̲̝̀̑͋̍̃̈́͜ḩ̶̋͝e̶͕̥͚͓̪̼̘̒͑́͒̍͋̒̚͜͝n̸͈̝̗͈̟̭͔̱̂̈́̅̆ ̶̱̰̘̹̝̀̑͐͒͛̅͐́̆͜a̴̫̪̲̙̣̳̜̦̱̮̓̓̂̅̀̌̂͝͠f̷͓̟̭͔̪̟̀̀̂͂͋̈̀̂t̴̺̯̦͌͊̏̇̐͘͠͝͝ẽ̷͔̜̙͇̱̪̎͊͐͋́̕̚͝͝ͅŗ̷̥̀͗̋ ̴̨͙͉̻͇̖̤̈͜ȩ̷͍̰͈̩͆͗͛v̵̢̛̠͍͉̟̝̍́͌̈̾̉̕͠è̷̜̩̓ȑ̴͕͍̯͉̯̪͗y̴̦̙̟̹̹̞̜̤͈͍͊͐̄̆̋͌͝t̷̛̛̯̳̗̤͐̅̽̋̽̀̆̒͜͜h̸̖̆ḭ̴͍̬̰̜͙̭̮̘̎͜n̸͔̪̦̺͌ģ̴̛͍̦͙̊̓ ̶̥̤̘̓̇̽ḫ̷͓͕̝̺͕͚̟̭̒͊̓̎͜ă̶̡̪͘͘s̵̛͇̺̬̩̈́͐̈́̋̃̒ ̶̧̡̣̲̗̖̣̾f̶͕͎̈́̅̾a̴̡̼̓́͝l̵͎̟͚̮̙͇̞̐͝͠ͅl̶̡͉͖̜̟̦͕̘͎̦͌̃͑̒͌͊̈́̔͝e̷͚̊͊̾ň̷̡̝̠̯͖̖̙̺͔̏̌͑̑͝ͅ ̴̢͇̖͇̼̞͈̻͝ͅṯ̸̗͇͙͎͇̥̽͒̒̋̆̀̆͌̊ẖ̷̛̤͎̼̩͈̯̉͗̕ę̵͚̞͐̀̆̏͋̔͠͝ ̷̗̣̼̱̙̠́̊͑̄̆̈͘ȏ̴̡̬͖͓̰̞̄̅͆̽̍̕͜n̸̛̲̦̠͙̈́͜e̴̡̳̮͒͜͝ ̴̙͎̯̹̜͉͆̌̒͋̓͗̾̕t̴̩̭̱̀̈́͊͒̃̋́͊̿̚ŗ̶̧̥̙͉̠̼̞̕͠ư̴͙̳̇̓̒̈̔͝͠ę̸̨̺̠͇͔̟̲̦̉̔̈͂̓ ̷͓͚͒̎̍́́̀k̸̙͍̬͙̻͈͍͌ǐ̴̻̲͙̯̩̦̒̈͝n̴͕̫̣̪̮̠͉͔̒̊͝͝g̷̡̻̲̳̺̱͇̣̊̊͂̆̀͒́̂̚ ̵̡̹͚͎̊͐w̵̧̨̩̱̳̪̤̭̄i̷͇͒̈͘l̴̳͚͇̲̞̹̪͗̈́̔͂̐l̵͚̼̦̱̟͑̂ ̶̛͇̌͛̉̌̓̊̓̈́͝a̴̧̨͎͇͚̥͇̰̥̱̽̀̂͝͠ṛ̴̮̣͆͂͊̆̂̀̋̂̾̕í̷̙͂̊ş̷̨̩̯̥̝͚͍̳̽̾͗̆̌͒ͅḛ̴̛̻͚̯̓̒̒̅͌̏̂ ̷̲̜̗̲̺͒̅͊̍̌ǎ̷̩͉̉̑̿̏͊̒͘n̸̪͍̪͒͋̓͗́̐̓́͛͠ḓ̴̬͑̏̔͜ ̷͖̹̖̗̮̏͂͗b̸̳̠̱̮͐͘̚ë̸̢̛͚̜̗̩̗͕̊̍̀̈͊̕c̵̦͑͘͝a̶̧̝͕̓̓̃̐̕u̸̮̫̭͔̣͉͑̋̿̐́͜ͅs̷͓̳͎̏͐̌̚͝ḙ̷̣͑͂̆̅̇͌͘ͅ ̵̡̨̼̺̳͓͇͔̞͝t̴̬̤͓̖̜̜͂̊̋̅̾̾͒̽͘͠h̸͉̺̩͍̼͑̾ę̴̱̺̩͈̘͇̯̟̿́̓r̸̜͚͓̬̓̓̿̐̅̈́̈́̃͘͝ȩ̶͙͎͖̰̩̫̭́̄͑̿̔̑̔ ̸̢͓̱̝͑͗̽̈́̐͋w̸̛̞̭̘̺͎̽̔̊̀̄á̵̢̧̩̱̮̱́͑̋̂̾̓s̴̝̲͍̤͉͔͓͘ ̷̛͕͙̽̑̐̊̽̓n̵͓̻̪̭̻̲͕̖̼̾̆͗̈́e̴͔̤̞̞̜̞̩̬͉̐̔̇͊͒̌̄̿̄̑v̴͖̟͕͓̻̺̞́̐̽͌́̔͛̍̅͘ͅe̷̢̡͓̺̺̋͠r̷̛̳̣̭̈́̄̌̎ ̶̹̾̍̍͠á̴͍̠̣̹͗͂ ̸̡̧̢̗̤̝̳́̐̎̉͆͒̎͜ţ̶̖̥̘͕̗̠̦̝̀ŗ̴͈͎̲̜̲̍̈͂̉̕ų̴̫̥̙͓̤̖͕͚͔̀ȩ̴̣͎͈̹̺̈́̀̊͋̚ ̸̺͇͉͂ṕ̵̟͉͔̏͠a̶̡͈̯̻̟̜͔͔͎͊̃̀̉̚s̸̠̞͓͚̮̰̘̆͛͂̑̑̄͊̓̏͜͠t̸͉͙̣̼̝͖͚̫̂̓́̏͐̚ ̸̦́͐̄̒͛t̷͉̯̐h̵͉͇̗̹̱̠̐̈́̊̃͛͗͘͝e̶̠̗̋̉̂̈́͗̇͘͜r̵͚̠̳̗̫̝̻͕̾̋͗͌̓̕͜e̶̢̩̝͓̯͌̈́̀́̀͝ ̷̫̻̿̐̈́̕̚w̵̢͐͐͊̚͝i̴̪̺̬̣̼͇̙̔̈̅͘͠͠l̵̢̡̜͍͖̥͍̪̥̀̀͛l̶̛̜̾̈́̏͋͑ ̵̛̲̤̺̾͂̎̌ñ̶̳̀̍̎̏̉̒͋̚ę̴͈̱̤͕͕̯̩̘̽̑̈́͋̊̿͘͘̚v̵͚̹͍̥͔̞̜̙̈́̀̓̐è̴̹̈́̂̀̆͊̂͝ȓ̷̛̭̟̲͎͖̀̈ ̵̨̠̲̟̠͋̋̾́͒̒̄̕b̸̢̢̝̝̼̣̮͕̩̀̃͋̇̂̈́̕ͅė̴̢̧̦̤̗͔͍͓̊̀̃̓̇͝ͅͅ ̸̟̞̾͗͗̋̐͠ả̵̧̛̠̦̜͂̿͐ͅ ̶̝̝̻̦̟́͑̇̑̎̄̄̑͒̔ͅt̸̲͈͇̓͐̃͑̑̐́̃̅͘ͅr̵͍̙͙̔̄́́̋́̈́͝ư̷̡͈̳̮͐͑́͂̈̃́̚͘ë̷͓̖͚̲͔́ ̶̣͔̗̟̝͇̣̊͌̃̅ͅf̶͎͙͔̙̮̝̳͍͉̭̈́̀̌̅̄̽̔̚ù̷̝͍͐̉̊t̵̠͉͈̘͎̠͕͛̎̆̑̀̉͘͜͝ȕ̸͕͚̱̽̽r̵̛͍͚̪̣̰̭̆̌̋̊̊͑͝ë̵̤̑̎̀̍̌̋̏;̸͇͋͗͗͠ ̴̺͚͕̩̤̩̒̓͗̍ͅẘ̴̡̛̭͙̣̫̖͛͐̓̇̀ͅh̸̡̨̡̜̙͚̣̱͔̄̄̾̕e̸̦̗͎̩̚n̷͓͎̉̾́̉̀̈́̔̈́͐̌ ̴̧̱̙̻̀́͘ͅè̴̡̡͖͐v̴̛͈͎͇̫͈̠̣̦̑̔̊͂̋́̕͝͠è̸̱͙͔̟͙̞̤̃̒̅̉ŕ̷̭̺͚͚̞͓̆̈́̍̈́̎́̕͜y̶̙̫͗͆̋̓̓̃̽́̎t̸̛̟̣͛͆͊̓̈͝ḩ̷̙͓͇̼̺̗̐́̉͝i̴̠̕n̶̛̞̭̜͎̯͐ģ̴̢̟͎͇̦̅ ̸̢̮̺̩̬̻̇͑̈́͒͘͝i̵͚͎͍̪̱͓̮̥̞͆̍̆̉́͛̑̌͜ś̴̱̘̠̬͎̭͒̊̽̃̓̔͝ ̷͎̦͙̋͆̆̓͌͑́̌͘͜ů̷̡̪̯̗̹̻̤̺́̐̿̓̿͂̓ṇ̸̥̝͎̒͋͐̔̈̂̇̈́̈c̴͓͎̝̪̆͗͒̓͗ȅ̸̘͈͖̮̳̱̉̆̉̇͌̑̂̕r̶̡͙̙͕̺̟̹̩̻̐̇̓̅̽̏͆͘ͅt̵̛͕̙̏̆̾̐̇̓a̵̱͙͓̬̺̝͖̰̦̰̅̍̋̃͠ḯ̵̧̝͎̻̓̆̿͂̚̕ņ̶̦̱̳̖̝̙̿̂̾̾ ̴̮͕̺̙̃̔͛͘͝ţ̶̘̤̥̘͝ḧ̸͚̻͎̩̺́̾̃͐͊͋̃͝ĕ̵̡͔̼̬̲̺̱̙ ̴̢̪͉̰̯͚̅̽͊̒̋t̷͈̗̟̀̑͒̎̕r̷̯̣̻͉̗̺̘̰̘͂̀̎͑͌̑̕ͅǘ̸͙͇̙̬̞͔̰̦̝͘ͅt̷̩̫͙̗̙̍͜ḣ̷̛̬͖̗̥͐̀̌͑ͅ ̸̘͕̜̳̜̬̻̮̼̆̂l̴̨̢͙̞͚̞̟̀̔͐̽į̴̠̪͚̥̹̒̓̐͐̅͋̂̊ę̵̖͈̤̔̿͘̕ṣ̶̙̈ ̷̰͛b̵̡̖̲̙̽̋̓̂̂͂̂͠͝e̵̡̫̫̗͓̘͇͑̀̏́́͛̏̂̚͠ỵ̵̛̞̻̭͙͇̟̘͎͂͋́̃͂͊͂́̌͜ô̶̯͚n̵̨͉̱̣̣͓͍̻̼̑̕͜͝͝d̴͍̐̄̎ ̷̗̅̃̈̈̆͗̀̒̀ẗ̴̨̨̹͓͙͖̰̭́́͜h̶͓̱͙͋͒̇̅͗͛͐̈́è̵̡͈̜̞͒̀̏̑̊͑̀̽͘ ̶͍̙͍̲̠̣̆̄̍̓̐͝͝c̷̡̜̥̰͖̰̖̰̺͖̐̂ŏ̵̡̞̮̮̬̤̠̱̟͊̉̏̐͑͒̑n̴̰̱̹̒͐̅̿̄͂́̓f̷̫̟͓̞̯̠͎̳̠̈́͐̇͗̎̓̈́̎̐̾ȉ̸̬͙͖̲̮̈́̃͂̚͝͝n̸̛̮͉̰͈̪̩͆̏̽̀̓͗̒̄͘ẽ̶̢͍̠̘̦̰s̶̙͚̲̬̟̼̗̦̀̓̐̃̅̎̌̓̍̌ ̶̠̙̯̖̰̳͕̟̱̐̆̂͂̍́̌̆̚͘o̶̺̘͛̽́̀̀f̵̢̗̳̰̏ͅ ̷̪͂̿͋͊̈́͗ř̶̙͖͖̜̉̋̃̈́̌̓e̶̩͔̜̺̖̖̭͈͈̿̂a̴̬̝̤̣̩̮͎̫̾̄̓̒́̔̇̇́̇l̶͖̔̊͌̔̽̊̋͝ī̶̢̧͇̞̩̪̃t̴̹̝͕̹͍͎͗̿͛̅̃̕͠ỵ̶̱̓͜,̸̧̤̖͖̭̿̔̾̃̈́̋͗̎̀̚ ̸͔͑͠t̶̳̤̪͓͉̖̊̓̌̈́͒̈́̕͠h̷̗̅̒̋͛ḛ̵͖̺̰̠͍͊̔̀̊͒͘ ̵̰̻̯̼̈́̌̍̓̔̋̃̈́̀k̴̥͉̣̦̪̳̹̲̾̄́̎̍͆i̵̹͚̝̟͔̗͖̼͎͛̓͐̌͒̊͘n̴̯̺̘̥͌g̵̨̟̼̣̻̦͍̹̱̊̋̓̓̕,̷̈́ͅ ̵̨̩̙̘̖͙̤͇̝̒̆͌̕ț̶̙̺̩̳̻͙̠̋̀̆̇͋͆̈́̕̚͠h̵̺̹̞͖͕̻̗̠̓͌̍̏́̄̀̍͘ē̴̡͖̙̭̙̮̪̰̍ ̶̧̩̟̤̟̬͖̬̞̀͂̉̑̕͘͜͠k̶̨̘͇͉̠̋̔̒͘i̷̧̨̩̞̠̭̗̘͈̊̈̕n̶̛̞̫̭̼̖̫͍̐̅͐̒͑̓͜͠͝ģ̴̺̮̩̝͍̹̍̌͆̎̃̉,̶̮́ ̴̙̈̎͛̾̿̈͜ṫ̴̟͆̂͂͐̈́͐̕̕ḩ̸̡̯͈̺͙̠͗̅ȩ̴̈́͌̈́̾̒̂̈̎ͅ ̷̝̳̺͈͍̹̰́́͘k̷̬̙͆̈́̄͗́̆͘͝i̵̞̙̼̜̜̣͓͍̥͊ṉ̶̺̹͙̀̔̃̉̈͝g̸̟̏̈́̃ ̶̨̜̞̪͎̘́͗̆͋̄͑͘̚i̶̤̯̞̮̳̜̝͈̗̓͊̈́̾̌͠s̶̢̝͔̙̼̱̞̯̺̋͜ ̴͒̈͜ͅą̸̰̩̰͉̄͒̂̂̑f̶͋̄͑͜r̵̢͙̫͍̹͛͊͋̈́̂̌͛̒̇ȧ̴̡͙̱̟̹͍̏̐͊̐̏̂̑͜ḯ̴̧̺̱͓d̵̢̘͍̟̱̖̙̱̰̎͊͛̏̊̔̐͘͝ ̵̲͒̈͑̽͌̆o̷̧̧̞̮̘̒̕ͅf̷͖̥̝̪̆͐ ̶̡̘̟̤̲̼͕̤̊ͅw̵̳̞͈̔̌̆͂͊̓̕͝h̵̢͍̻̦͉̜̼͍̮̎̔́͆a̵̡̜͍̤̬̹̲̔͋͜t̵̼̤̭̳̗̿̃̈́̾̊̎̀'̷͓̠̯̮͖͙̙̓̄͐́̃͛̚s̷͍͍̼̟̯̣̩͇͊͒̏́̈́̐͐́̕ ̶̩̬̻͍̖̼̃̏̋̈́͋͗̈́͌̀̚t̶͓̗̜̓̉̂̾͘o̶̻͚̞̯͖̿̈́̾͂͠ ̴̧̨̮̣̟͓̰͓̙͕̐͘c̷̠͋ͅǫ̵̧̮̪̖̺̿̅͒͛m̴̡͓͔̖̈́͛͌́͑͌̎e̶̡̻̹̼̼̤̯̮̫͂̈́̽̂̈́͂͆͋͛͝ ̴̧̮͗̈̈́͋͘ã̵̢̢̡͚͉̖͓̔͝͠f̶̙͈̹̑́̅̅͛̓ṫ̶̘͚̳̹̈̐̌̒͊͆̇̚͜͝e̷̢̡͚̭̱͍̬̣̋̆̈̀̍̽́r̴͔̦͖̯̆͆̊̅̏̌̏͠͝ ̵͉̗̌͋́̀ţ̶̙̗͔͇̜͓̯̜͍͆͌̒̓͆̊͘ḧ̷̜̗̙̣̳̼̙́ͅe̸̩͙̔͆̽͋̈͋̕̚͘ ̷̥̥̤͓̝̥͝é̵̢̛̌̿̏̒̏̉̊n̶̲̘̐͛͂̔d̴͔̝̪͎̺̤̝̾̾̄̉͐̕,̷͑͗͒̈́͌̿͗̚͜ ̷̘̣́ͅb̵̡̨̜̜͇͖̓͜ͅū̸̢͈̭͕̦̺̤͆͂̇̀͌̚t̷̰͑͛̉̍͒́ ̵̱̘̖̦̈́̌̓̊̈́̓͆̓͝ͅw̶̳̰̮̣̣͉̿̐͊͊̿͗͛͗e̶̢͍̤̹̣͉̅̓͗̇ ̵̨̢̻͙̲͙̞̣͙̞͑͋a̴̘̫̻̬̦͚̫̯̭͚̎̑͊͑̈́͂͒͝͠l̵̖͈̊̋̈́ĺ̸̛̤͇̓̐͜ ̴̖̳̬̰̑̿̑͒͛͒̕̕͜k̸̢̡̢̯̞̙̝͖̰̩̾͊̓͝ǹ̶̦͈͉͈͚̦̯̔̈́ͅŏ̴̺͆͒̉͒͘͝͠w̵̭̤̤̍̈́̈́͋̌̀̔͘͝,̷̨̭͖̘͙̂́͆̕͜͝ ̷̫͂͆͛̔̀̿̋͐̏͘͜w̷̝̗̘̖̟̾͌͊̋͂̔́͒͝ę̸͔̰͇̘̖̹̔ ̴͈̞̪̯͌̎̎͝a̶̞͙̥̙̺͉̠̱͔͆̈̀ͅḷ̸͎͓̿̾l̴̯̺̫̮̋̋̄̀̎͝ ̸͈̦͎̲̮͇̫̲̠̟̇̈́͛̽̌͊͋ķ̸̻̳̪̫͊͂̀͘͜ń̷̰̪͖̩̉́́̀̒̈́o̷͉̓̑̍͘̚w̴̡̨̖̪͉̪̟̗̥̓͂̄̈́͌̆͗͜͠ ̸̨̨̪͙̲̻̻̞̰́t̵̨̰̱̙̪̎̚̚ͅh̸͚̣̒́̎a̶̢͎͙̘̹͖̯̐̾̈͌͐̉̂͘t̴̢̮̻̤͌̎̈́̚ ̸̭̼̈́̆̑̿͝o̶̖͚̺̔̅̅͒̏͐̄̄̊͠ͅņ̸̣̯̥͂̏͆̎̍̊̿̿l̵̢̪̇̓̌̽̌̚͝ẙ̵̛͈͚̜̱̺̣̿̓̊̐̊͒̅͜͜͠ ̶̱̥̲̝̻̪͑ơ̶̛̝͕̠̩̜̬̓͆̽̊̇͘ͅn̶̡̨̩͍͎̝̥̟͓͊̔̔̈̓̈́̂͜ë̶͓̭̥̪̰̞̱̜̭̜͗̽̐͆͐̕ ̵͎̰̀͑͊͊͗h̶͔̙̖̫͗͒ą̷̼͇̪͐͋̌̒͛͂̌̔s̸̪̹̲̘͇̎́̉͊̽̅̀͝ͅ ̷̳͎̲͙͐̌͝t̴͙̓̉̌̈́͊̒̈́͠h̵͈̮̤̽̋̊̇̍̋͂̊̒̚ȩ̸̛̪̬͕͓̘̈́͒͘ ̴̛̩͕̭͎̭̩̰̭̊͆̽̽̈́̚p̴̦͈͒͌ọ̸̢̲̺̞̱̼̭͎̇̊̄̈̀̅͐͌͗w̸̗̰̫͈̫̄e̶̲̻͇̯̻͎͋̏ͅř̴̛͓̞̞̬͉̅̀̀̈́̊͊̋ ̸̜͂̈́̀̃̈́͝͠t̸̡̂̀͗̂̈o̵̦͙̻̭̟̻̫͙͂̌͆͆͠ ̷̠͔͚̱͎̭̞̮̻̈́ͅb̵̧̛̝̟͙́̎̈́̍̃̀͠ȑ̷̨͇̩̖̟͎̩̅̾̕e̵̡͔̖̯͌́͗͐̀͘͜͝a̸̮̪̣̱̦͎̼̞͍̾̀͂͑̌̓͗̈́̚͝ḳ̵̢̘̎͠ ̴̡̢͕̰͎̻̗͎͔̆͛̉t̷͓̜̱̳͉̰́̊͆̂̊͑̓́h̴̛̜̰͇̟̯̰͔͂̋̅̍̀̇́͝é̵͓͙̦͎̬͉̮̭̫̻͆̈́̒͒͛̀͂ ̵̤͕͆ś̸̮̻͓̠ë̸͎̙̯̳̪̬̻͆̔͋̍͆̒͠ä̵̛͙͔̘̜́͒̀́̈́̿̂l̵͕̘̫̥̊̊,̵̤̿̏̌͆̈́̿̓̒̕͠ ̴̢̨̨͎͍͔̮̮̤͈̆̈́̉̽̌͋̍̇g̵̘͚͓̠̲͕̈̅̈́ő̷̟̳̘͌͝ ̴̧̳͔͚͍̟̝́̀̏͌̅͛f̸̨̝̯͇̥͓̈́̓͜ō̴̧͓̪̗̹̹͗̌͑̈̚͜͠ͅr̶̹͇̲̮͉͖̓͆̓̔̌͛͌͛̕͝t̷̢̧͚̠̙̱̙̜̩̫̀̓͊̃̽͆̂͛̄͌h̸̢͈͙͔͎̰̦̮͙̮͊̚,̴̢̖̟̤͙̬̭͂̈́̐̇̇̽̆͂͠ ̵̡͍̥̠̭͂̾̀̋̀̇̐̉ͅö̴̖̺̮̤̲̝̜̣́͊͂͋͐͠ͅn̴̻͖̲̜̤̬̘̯͍̏̑̉̓̊͐̀̔̑͝e̶̺̰͑̍̓̉̂͗͠͝ ̷̖̟̈̒̐o̷̠͋̔̒̂̕f̶̛̻̺̊̌̊̏̇͗͠ ̴̛̭͙̙̦̀̓͆̈́̈́̒͘͜͜t̷͉͈̟̟̻̍͘̕͝h̷͍̹̠̰̦̟̚͜ͅȩ̵̧̟͚͔̉̒̽̏̽̇̾͝ ̵̣̀͘͘͝l̸̗͗̌̒ḯ̵͍͓̤̤̈́̀̒͒͝͠g̸̢̛̛̤̝̘̱͍͋̄̈̀̓̿̆͜ͅẖ̷̞̞̙̝̳̂͛̂̀̚ͅẗ̵̛̥́̈́̿́̀̈́̀̏̚ ̴̧̟̬̙̜̬̱̩̒ͅà̸̝̲̩͚͉̓n̵̡̨̩̤̙̯̭̞̄̒̃͆͋̀͛̓̈ͅḑ̴̘̻̦̰͈͇̭̘͆̇͐̇̔ͅ ̴̪̫̦̭͇͉̦̈̔͑́͌̄̀͠͝t̷̢̛̮͚̦͈͙̥̯̽̽̐̎͂̚ͅh̵̢͕͇̓̑͊̆̐͝ẹ̶̜͖̍̈́͂̎n̶̢̧͉̰̫̲̏̌̿̊̂̋̒͊͘ ̴͍̊͒ċ̶̢̛̳͎̹̫͚͖́͐̔̓͑ͅa̸͚̞̱̗̭̦̔̾͑̇̈́͑̈́s̶̝͉̜͉̒̃̒̔͊͝ͅͅt̶̨̖̬͔̭͇͎̰͖̘́̅̏̒̂͊̅̚ ̴̧̛͙̼̉̃̀̉̋̔̆̚ȧ̴͔̞̹̱͍͜w̸̳̃́͂̍̌͗̋͆̄͠ä̶̹̲̜͝ͅy̸̛̲̰͇̏̊̍̆̆̌́ ̸̙͖̕t̶̪̪̄̉̑͗̕h̸̰͍̗̫͓̖̓̇͝e̵̡͙̖̣̰͙̯͍̍ ̷͔͙́̊͑͛͂̊́͊v̴̘͍̬̟̲̺͎̹͈̍̃̌̓͝͠͠e̸̳̝̪̼̗̿̋͂̾̔̓̎̿̚̕ͅì̸̧͈̠̑̿̃l̴̨̳̩̭͑͊̔̓̇͑̾͜͠ ̷̱͈̫̹̞̬̳̰͔͈̐̇͊̾̓͛̏͆ö̶̡̝̪̮͓̣́͋̊̋̇͒́͆͜f̴̯̼̈́͋͊̌̄̈̀ ̷͉̪̜͓͇̖̱͚̹̘̐͋͘s̷̤̻̳̰͙͉͝ḧ̵̳̺̼͂à̸̛̟͖̑̀̈́̐̇̚͠d̷̨̹̠͙͚̦̔͆̒͜o̷̧̯̦̬̤͇̺̓͛̾͐͒͝ẅ̵̢͎͖̺̣̙̝̱́͌̈̂̌̿ ̸͈͓̼͓̮͊̈͂͌ͅt̴̰͙͉̫͑̔h̸̳̩̅̉̅͐͜a̸͇̪̲͐̾̈́͜͝t̶̡̡̛̤̘̜̱̩͔̬́͌̈̀̾̐̈̕̚ ̸̹̞̓̍ḷ̵̩̭̼͒̄̈́̄͌̒͆͠ä̴̛͕͍͍͍̻͍̻͚͍̰́̀̽̑̕͠y̴̨̧̙̙͓̳͍͙̏͆͌͒͂̑͜ș̶̛͔͝ ̸̨̠̹͊̊̊́̽͋ǔ̷̦̯̼̰̜͔͜p̴͙̫̣̥̍̎̔̈́͌̀̌o̷̧̻̺̗̾n̵̗̹͉̙͊̔̉̉̚ͅ ̶̪̝̜͇̩̳͈̭̻͚̀̃̐̀̌͗̂̌̂͝t̴̡̢̳̱̝̖͍̩̙̺̿̈́̒̋̕̚͠h̴̨̦̻̏́̀̓͘ę̵͇͓͐̃̈̆̋͑ ̵̗̥̹̤̖̤̦̪̦̊d̵̯̣̻̘͕͋̃ả̴̠̝̠̟̞͋͜r̵̨̰͓̠̭͙̩̈́k̸̟͎̠̤̜͓͔͓̈́̈̽͠ ̶͓͉̮̲̻̋̀̉̚p̴̘̯͕̫͓͛a̴͓̘̲̻̥͌̍͆̕s̷̢̨̠͙͍̞̩͙̟͂͌t̷̜͇͈̤̤̬̩͕̙̽̾͊͠ ̵͕̤̤̻͎̈́̍͌̌̾̕͘͠ͅa̸̧̹̯̦̰̳̺̅̔̇̍̃̀ǹ̶̨͇̮̼̂͊́̋̇̉̏d̶͚͕̐ ̵̛̹̖̺̜̺̭̦͙̥͔ḇ̶̧̬͕̲͚̀͗͒̐̇̐̂͂̑̕r̶͚͍̜̠͇̹̳̉̄̆ͅį̶̤̤̠̩̞͑̑͛̈́̌̿͌͝n̵̻̈́̑̈́g̴̛͇͋̄̈́̍̏͜ ̷̲̏̑͌̔̈́͝t̴̫̺͔͍̝͕̬͐̒͘͝h̶̨̺͎̜̓͆̎̅̇̕ȩ̸̡̞́ ̶̛͈̘̬͂͑̅̃̌͘ẅ̶̛͔̭̥͔̹͙̣̣̰́̇̉͑̕͝ọ̷̢̌̈́̐͒́̚r̶͔͕̩̫͈͉͇͐̈̅l̷̡͇̦̻̰̝̯̰̾ḏ̶̛͖͉͕̣̰́͊̓̅̐̆̕ ̷͖͍̲̮͛̔̌̌̂̈ĭ̶̹̬̺͔̘̠̓͊͂́͝n̵̢̨͈̹̬̭̭̠̞̂̏͗̈͝t̵̳̔͗̓̀̓̏̎̋̉o̷̫̥̟̰̾͋̀̀̕͝ ̸̢̧̩̫͔͚͓̫͔̾̓̈͂̍̇̏̽̕̚͜s̵̛̪̥͕̥̓́̐̀̉́̚͝ĉ̴͖̣͎̒̏͛͆͋̕ơ̴̛̝̓̑́̀̃͠͝r̵̢̝͈̩̳͇̘̍̌̋c̵̤̫͍̅̄̀̀̽ḣ̸̨̪̰̰̾̀̏̅͆̔̕͝ì̶̧̨̱̪͚͓̥͎͚̓̇͂̓̽̍͒n̵̰̹̮̜͆̋̅͌͐g̷͇̮̤͔̞͊̊̉̈́͆͋͗̕͜͝ ̶̠͙̫̩̟̖͚̈́͗͆̎́̓͛́͜l̷̲̗͚͐́͑̀̊̓̚͝i̸̲̳̲̪̞̦͌͑̀̓͑̊̎̕͝g̶̢̺̤̣̭̮̙̺̏͆̉͊h̷̡̘̺̼̲̱̦̳͌͛͌̈̒͛͋͝ť̵̨̫̰̘̱̌͊̐̚͝ ̵̨̣͖͚̒̍̀̔̍̌̾̃̚͜ͅt̵̡͎̘̝̩̦̣̹̂̃̒̓̔͝ͅh̵͓̬̙͉͈̞̤̃͒͆͋͒͋͘á̵̦̺͚̋͒̃͜͠t̶̢͙̮̦̟̦͇̥̺͒̏̀͝ ̶̰͆̍̆̓͒͋̐͘ȩ̷̦̤̜͕͙̇͋̈̐̄̎̀͝r̸̛͎͔̣̮̣̲̬͙͊̑̉͊͛͐̕ḁ̶̢̺̤̬̠͓͍̻͜͝ş̷̡̻̱͚̣̫̣͕̌̾̓̐̊͑̿͛͑̕ḛ̴̞͚̦̱͌͝s̶̀̏́̀͐͑͗ͅ ̵̨̨͓̼͇̻̣̦̪̞̎͂͒͝l̵̡̯͔̳̭̄̓͝i̴̪͎͉͉̱̪̭̖̾f̵̳̿̍̏͗͘͘e̸͉̝͈͍̬̝̺͛̈͒ͅ.̶̼̬͔̹̍͑̈̅͂̋̃̚͘")
+                        elif dialogueprogress == 5:
+                            dialogueprogress = 6
+                            dialogue("???","F̵̲͇̲͍̐́̈́̄͑̈́̕Ơ̴͔̆R̷̨͔̺̬̥̜̝̯̓̈́̇̐̀̀͜͜ ̷̨̡̧͉͈̫͉̥̑͜͝T̸̲̤̫͍͉̤͈͓̪̓͝ͅH̶̨̡̥̰͈̩̫͕͕͋̀͛̇Ę̵̭̬̰̹͖̜͍̥̞͐ ̴̝͓̮̬̠̩̩̞̘̆͜Ȱ̶̡̺̰̤̩̝̯͌̒̍̊̀̿͊͝ͅŇ̶̻̮͇̝͔̩̲̓̊̂̾̔̓̌̎̎Ê̴͖ ̷͓̳̲͙̈́̔̑Ţ̵͈̰̩̤͇̔̌͋̔͊̀̒̃̐͝R̵̮̮̟͓͙͇̲̣̠̆̈ͅṲ̴͗Ȩ̵̞̀͊̏̒͊̉̄̀ ̸̧̩̩̳͔͓̤̯̤͐́͋̽̐͝K̴̨̙͍̜͎̼̤̤̄̓̃͐͋̀́Í̷̡̹̳̹̄̓͜N̴̬͍̞̭̣̎̽͋͐͝͝͠G̷̨̩͓̗͘,̶̟̭̹̫̾͌̍̆̿ ̴̖̎ͅF̸̳̬̞̣̭̲̟̑̎̋͌̕Ơ̷̛̛̻̜͍̤̣̥̄͛̽͑̀͘̕͜Ŗ̴̙̖̱͙̱̰͕̱͓͌̋̔̄̾͛̈́ ̶̧̛͈̞̻̭́̅͗͒͗̊̇T̶͎́̓̄Ḩ̸͍̖̭̦̈́̊Ȩ̵̢̝͚̺̬̑͑̋ ̴͍̲͇͖̖͐̉͑̂O̶͙̻̹̟͋̒͒͘N̴̫̉̀͘͜͝Ě̷̪̒́̕ ̸̣̿T̶̞̼͇͗̋̔̇͊̐Ŗ̵͚̺̣̋͐͐̇͜Ú̴̡̗̩̩̥̥̫͖̚͜E̶̹͖̠̩̤͛́͗ ̵̱͓̣͉̀͒̈̌̒́̂̒͘F̵̡̯͇̳̳͖̤̭̱̯̊͑U̷̧̙͍͈̞̜̳͓̜͂̋̅͌̈́͒̓T̶̡̏͐̓̾̏͝͝͝Ǘ̴̢̲̩̥͕͌̐̉̇͑̍̚͘R̵̨͙̣͙̗͖̗͂͊̂̃̅͊Ȩ̸̧̻͔̜͎̫̲̋͊̀͒͜,̴̖̳̻̺͓̥̚ ̶̛̻̫̱͓͈̓̽͂̔̉͑̂F̴̢̢̰̰̱̱̝̩̬̽̐̈́͌͊́͘Ö̵̠̟͖͖̺̯̰̖́͑̀̈́̚̚R̶̝͖̰͓̻͍̯͎͐̓̀͆̄̎ ̴̛̛͇̦̝͎͎̰̥̪̟̔̓̅͊̽̀͂͘ͅṪ̸̢̫̞̻͚̗̍͆͊͌͝Ḧ̷̬̖̮̳̖̥̔͂̎̊͜Ȩ̴̪̬̖͇̘͇̙̌̈͂̊̊̆̀͆̒̀ͅ ̸̞̠̎́̽̾̏͂͠Ọ̸̻̋͑̅̄͛̆͛̾N̶̻̝̖̄͘͜ͅE̸̛̤͔̩̼̮̻̦͂̈́͜ͅ ̶̩̥͕̩͕̔͘T̶̩̎̀Ṛ̶̡̛̒̃̈́͆͛̄̃͝U̵̧̼̖̩̗͚͐̑Ë̸͕̭͔̺̇̌̋͆̓͐̌̕͝ͅ ̶͕͌P̸̧͍͍̳͚̥̒́͜͝A̴̛͔̺̎̈̅̐̕͜͠S̶̨͓͙̠̆̑̓̄͠T̸͍̮̟̦͓͈̼̜̳̍̊̿̿̆,̵̤͈̘̩̪̤͂̚ ̴̮̣͚͈͎͔̬̠̲̋́̂́̅͗̿͘͝D̶̡̼̹͔͎̉͒͂̈́̇̈͐̚Ȩ̶̢̧̠͉̔͑F̸̧̧̢͎̬̟̘̙̬̖͊̅̈́͑̒̀͘͠͝͝Ę̶̙̦͌̋̃͜͝Ä̴̢̧̤̝̣̝̟̤́̆́͒ͅT̷̠̊̇͝ ̴̛̛͚̹̦̽́́̌͌͆̕͠M̴̨͇̒̈͊̉̐̇͆̚̕E̶̛͔͍̯͙̳̎͑̅ͅ ̸͎͙͕̌͊̿͗̐͋͛̄̓͠Ă̵̧̒̃͂̎̑͊̕͘N̸̼̣̫̮͖͎̝̜̄͋̓̐̇̇͗̆͜͠Ḑ̵̛̝̦̙̬̏͆̅̃̌̍͝ ̵̮̊͑̋͌́C̵͕̉̒̋̋̆̅͆̄̎O̷͈̥̖̺̯̦͔͉̼̿͆́́̈ͅN̴͕͖̂͆͌̐̊̄̊̇͝T̵̩̤̜͍̆̊̚ͅͅI̸̡͇̥̮̦̳̮̊͐́͗̈́̿͝N̶̛̩̓͗͋̒̀U̸͓̜͈̗̺͂̑́͑͠͠͝Ë̴͉̩̙̘́̈̄́̎!̵̪̅͛̂̽͘͝")
+                        elif dialogueprogress == 6:
+                            indialogue = False
+
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+    -------------D E F E N D-------------A T T A C K-------------
+    ------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint("Hyjlrmqn of the Void confronts you!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> Can't- Breathe-")
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 1
+                            difficulty = 10
+                            refreshrate = 0.45
+                            is_fake = False
+                            battle = "Void"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,f"*Gasp*\n*Wheeze*")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"You gained three revive seeds!")
+                                        revivalseeds += 3
+                                        time.sleep(2)
 
 
+        else:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel along a small, paved roadway...")
+            time.sleep(3)
+            slowprintintroduction("\nThe shadows begin to rumble around you!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A Curse attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> The heck?")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 1
+            difficulty = 5
+            refreshrate = 0.5
+            is_fake = False
+            battle = "Curse"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"(That wasn't as bad as I expected!)")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"Exausted, {playername} took shelter in an abandoned alleyway.")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        break
 
 
 
