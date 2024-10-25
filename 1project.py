@@ -153,7 +153,7 @@ stuntimer = TimerEx(interval_sec=6, function=unstun,)
 tiredtimer20 = TimerEx(interval_sec=20, function=enemytired,)
 messageresettimer = TimerEx(interval_sec=2,function=resettotutorialmessage,)
 archerspeeduptimer = TimerEx(interval_sec=10,function=archerspeedup,)
-archerbattletimer = TimerEx(interval_sec=60,function=endarcherbattle,)
+archerbattletimer = TimerEx(interval_sec=90,function=endarcherbattle,)
 
 timer = Timer(3, clearmessage, args=())
 line1 = [">             *  *  *  *","0000","0"]
