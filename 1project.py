@@ -2780,6 +2780,8 @@ while menu == 'maingame':
                         print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
                         time.sleep(0.2)
                         break
+            else:
+                time.sleep(1)
 
 
 
