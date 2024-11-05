@@ -152,8 +152,7 @@ def clearmessage():
 stuntimer = TimerEx(interval_sec=6, function=unstun,)
 tiredtimer20 = TimerEx(interval_sec=20, function=enemytired,)
 messageresettimer = TimerEx(interval_sec=2,function=resettotutorialmessage,)
-archerspeeduptimer = TimerEx(interval_sec=10,function=archerspeedup,)
-archerbattletimer = TimerEx(interval_sec=90,function=endarcherbattle,)
+
 
 timer = Timer(3, clearmessage, args=())
 line1 = [">             *  *  *  *","0000","0"]
@@ -807,6 +806,19 @@ def checkstun():
                     extraslowprintintroduction(f"{playername} attempted to fight a monster house without a petrify orb on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
+                elif battle == "Monster House 3":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was suprised by a monster house on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
                 elif battle == "Bandit Gang":
                     incombat = False
                     if tiredtimer20.is_alive():
@@ -870,6 +882,84 @@ def checkstun():
                     time.sleep(5)
                     clear()
                     extraslowprintintroduction(f"{playername} thought it was safe to rest on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Guard Squad":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} couldn't muster up the strength to fight on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Shadows":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was overwhelmed by darkness on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Self":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} could not keep a firm hold on reality on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Knight":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was not ready for day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Raid 2":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} fell and didn't get back up on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
+                    time.sleep(5)
+                    quit()
+                elif battle == "Rats":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} was jumped by a horde of rats on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
                 elif battle == "Archers":
@@ -1040,6 +1130,9 @@ def checkdeath():
 
 def clear():
     os.system('cls')
+
+
+
 
 def slowprintintroduction(string):
     i = 0
@@ -1862,6 +1955,8 @@ def travel():
                         tired = False
                         battle = "Archers"
                         jkl = 1
+                        archerspeeduptimer = TimerEx(interval_sec=10,function=archerspeedup,)
+                        archerbattletimer = TimerEx(interval_sec=90,function=endarcherbattle,)
                         archerbattletimer.start()
                         
                         while incombat == True:
@@ -2378,7 +2473,233 @@ ______ _                    _____ _                              _____          
                         riskyrest()
                         break
 
+    elif progress < 20:
+        progress += 1
+        day += 1
+        r = random.randint(1,20)
+        if r == 1 or (r > 10):
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through the empty corridors of the castle...")
+            time.sleep(3)
+            slowprintintroduction("\nYour steps echo throughout the vacant halls.")
+            time.sleep(2)
+            menu = 'maingame'
+            inmenu = True
+            slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+            riskyrest()
+        elif r == 2:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through the empty corridors of the castle...")
+            time.sleep(3)
+            slowprintintroduction("\nThe clanking of heavy metal boots startles you!")
+            time.sleep(2)
+        
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("The Guard Squadron Attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> ...Why are they so silent?")
 
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            tired = False
+            enemies = 2
+            difficulty = 7
+            refreshrate = 0.5
+            is_fake = False
+            battle = "Guard Squad"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"They didn't say a single word...")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"{playername} kept wandering the halls...")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        riskyrest()
+                        break
+
+
+
+
+
+
+
+
+
+        elif r == 3:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through the empty corridors of the castle...")
+            time.sleep(3)
+            slowprintintroduction("\nGah! It's an ambush!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("The shadows around you begin to dance!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> What ARE these things?")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 3
+            difficulty = 7
+            refreshrate = 0.4
+            is_fake = False
+            tired = False
+            battle = "Shadows"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"I just gotta keep going, can't stop, can't stop...")
+                    oranberries += 2
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"{playername} is still standing.")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        riskyrest()
+                        break
+
+        elif r == 4:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through the empty corridors of the castle...")
+            time.sleep(3)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue(playername,"*Thump*")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"*Thump* *Thump*")
+                        elif dialogueprogress == 1:
+                            dialogueprogress = 2
+                            dialogue(playername,"(*Gasp* Who's there...)")
+                        elif dialogueprogress == 2:
+                            dialogueprogress = 3
+                            dialogue(f"{playername}","...")
+                        elif dialogueprogress == 3:
+                            dialogueprogress = 4
+                            dialogue(playername,"(Oh... It's just my own heart beating...)")
+                        elif dialogueprogress == 4:
+                            dialogueprogress = 5
+                            dialogue("???","...")
+                        elif dialogueprogress == 5:
+                            dialogueprogress = 6
+                            dialogue(playername,"(My head... I can't...!)")
+                        elif dialogueprogress == 6:
+                            indialogue = False
+
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint(", confronts you!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> I... Who?")
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 1
+                            difficulty = 5
+                            refreshrate = 0.2
+                            is_fake = False
+                            tired = False
+                            battle = "Self"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,f"*Gasp*\n*Wheeze*")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"You gained a revive seed!")
+                                        revivalseeds += 1
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        riskyrest()
+                                        break
+
+
+        else:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou travel through the empty corridors of the castle...")
+            time.sleep(3)
+            slowprintintroduction("\nA patroling knight spots you!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint("A Guard attacks!")
+            time.sleep(1)
+            slowprint(f"{playername}: \n> Finally, something!")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 1
+            difficulty = 7
+            refreshrate = 0.45
+            is_fake = False
+            tired = False
+            battle = "Knight"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"(Back to solitude...)")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"{playername} kept wandering the halls...")
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        riskyrest()
+                        break
 
 
 
@@ -2627,7 +2948,121 @@ def forage():
             slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
             riskyrest()
 
+    elif progress <= 20:
+    
+        if r == 1:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou take a break from exploring and instead search for food...")
+            time.sleep(1)
+            slowprintintroduction("You found a storage room and came away with one oran berry!")
+            oranberries += 1
+            time.sleep(1)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue(playername,"(Even the food is stale...)")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue("???","HisssSSssSssss...")
+                        elif dialogueprogress == 1:
+                            indialogue = False
 
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint("A Colony of rats attack!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> This food is mine!")
+
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 3
+                            difficulty = 3
+                            refreshrate = 0.3
+                            is_fake = False
+                            battle = "Rats"
+                            tired = False
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,"Phew! Time to get outta here before more show up...")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"{playername} is still alive.")
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        riskyrest()
+                                        break
+        if r == 2:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou aimlessly wander into a large room that emits a wonderful smell.")            
+            time.sleep(3)
+            slowprintintroduction("\nIt's a... Kitchen?")
+            time.sleep(2)
+            slowprintintroduction("\nNah, who are we kidding, it's a Monster House!")
+            time.sleep(3)
+            clearboard()
+            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+            slowprint(f"{playername}: \n> Finally... some company...")
+
+            stun = 0
+            combo = 0
+            incombat = True
+            additivecomborefresh = 1
+            additiverefresh = 0
+            enemies = 4
+            difficulty = 8
+            refreshrate = 0.4
+            tired = False
+            is_fake = False
+            battle = "Monster House 3"
+            jkl = 1
+            while incombat == True:
+                refreshspeedcontrol()
+            while incombat == False:
+                if jkl == 1:
+                    jkl = 0
+                    dialogue(playername,"Dead already, eh?")
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        cancontinue = False
+                        slowprintintroduction(f"You gained 3 (3) Revive Seeds!")
+                        revivalseeds += 3
+                        time.sleep(2)
+                        menu = 'maingame'
+                        inmenu = True
+                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                        riskyrest()
+                        break
+
+        if r == 3:
+            slowprintintroduction("...\n...\n...\n...")
+            time.sleep(2)
+            slowprintintroduction("\nYou wander througout the empty halls of the castle...")
+            time.sleep(3)
+            slowprintintroduction("\nYou found... nothing.")
+            time.sleep(2)
+            menu = 'maingame'
+            inmenu = True
+            slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+            riskyrest()
 
 
 
@@ -2659,64 +3094,125 @@ def riskyrest():
     global menuselection
     r = random.randint(1,12)
     if r == 1:
-        menuselection = 0
-        menu = "Rest Ambush"
-        time.sleep(2)
-        slowprintintroduction("As you begin to rest, heavy metal boots clang on the ground beside your hiding place.")
-        time.sleep(1)
-        slowprintintroduction("\n...")
-        time.sleep(2)
-        indialogue = True
-        dialogueprogress = 0
-        dialogue("???","Aha. We found them.")
-        while indialogue == True:
-            if cancontinue == True:
-                if keyboard.is_pressed('x'):
-                    if dialogueprogress == 0:
-                        dialogueprogress = 1
-                        dialogue(playername,"...")
-                    elif dialogueprogress == 1:
-                        dialogueprogress = 2
-                        dialogue(playername,"Uh oh...")
-                    elif dialogueprogress == 2:
-                        indialogue = False
+        if progress < 10:
+            menuselection = 0
+            menu = "Rest Ambush"
+            time.sleep(2)
+            slowprintintroduction("As you begin to rest, heavy metal boots clang on the ground beside your hiding place.")
+            time.sleep(1)
+            slowprintintroduction("\n...")
+            time.sleep(2)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue("???","Aha. We found them.")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"...")
+                        elif dialogueprogress == 1:
+                            dialogueprogress = 2
+                            dialogue(playername,"Uh oh...")
+                        elif dialogueprogress == 2:
+                            indialogue = False
 
-                    
-                        clearboard()
-                        slowprintintroduction("""\n_____________________________________________________________
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
 -------------D E F E N D-------------A T T A C K-------------
 ------------  A  S  K  L-------------   D  J    -------------""")
-                        slowprint("It's a raid!")
-                        time.sleep(1)
-                        slowprint(f"{playername}: \n> Can't even catch a good rest here, can I?")
+                            slowprint("It's a raid!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> Can't even catch a good rest here, can I?")
 
-                        stun = 0
-                        combo = 0
-                        incombat = True
-                        tired = False
-                        additivecomborefresh = 1
-                        additiverefresh = 0
-                        enemies = 4
-                        difficulty = 8
-                        refreshrate = 0.4
-                        is_fake = False
-                        battle = "Raid"
-                        jkl = 1
-                        while incombat == True:
-                            refreshspeedcontrol()
-                        while incombat == False:
-                            if jkl == 1:
-                                jkl = 0
-                                dialogue(playername,"Gotta... Get... Away...")
-                            if cancontinue == True:
-                                if keyboard.is_pressed('x'):
-                                    cancontinue = False
-                                    slowprintintroduction(f"{playername} decided to call it a day.")
-                                    time.sleep(2)
-                                    menu = 'maingame'
-                                    inmenu = True
-                                    slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
-                                    break
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            tired = False
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 4
+                            difficulty = 8
+                            refreshrate = 0.4
+                            is_fake = False
+                            battle = "Raid 2"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,"Gotta... Get... Away...")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"{playername} decided to call it a day.")
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        break
+
+        if progress < 21:
+            menuselection = 0
+            menu = "Rest Ambush 2"
+            time.sleep(2)
+            slowprintintroduction("The empty halls of the castle begin to echo suddenly with the heavy clanking of armour.")
+            time.sleep(1)
+            slowprintintroduction("\n...")
+            time.sleep(2)
+            indialogue = True
+            dialogueprogress = 0
+            dialogue("???","Aha. We found them.")
+            while indialogue == True:
+                if cancontinue == True:
+                    if keyboard.is_pressed('x'):
+                        if dialogueprogress == 0:
+                            dialogueprogress = 1
+                            dialogue(playername,"(Leave me alone...)")
+                        elif dialogueprogress == 1:
+                            dialogueprogress = 2
+                            dialogue(playername,"(Leave. Me. Alone!)")
+                        elif dialogueprogress == 2:
+                            indialogue = False
+
+                        
+                            clearboard()
+                            slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                            slowprint("It's a raid!")
+                            time.sleep(1)
+                            slowprint(f"{playername}: \n> Sorry, {partnername}, I might not make it out of this one...")
+
+                            stun = 0
+                            combo = 0
+                            incombat = True
+                            tired = False
+                            additivecomborefresh = 1
+                            additiverefresh = 0
+                            enemies = 4
+                            difficulty = 9
+                            refreshrate = 0.35
+                            is_fake = False
+                            battle = "Raid"
+                            jkl = 1
+                            while incombat == True:
+                                refreshspeedcontrol()
+                            while incombat == False:
+                                if jkl == 1:
+                                    jkl = 0
+                                    dialogue(playername,"Gotta... Get... Away...")
+                                if cancontinue == True:
+                                    if keyboard.is_pressed('x'):
+                                        cancontinue = False
+                                        slowprintintroduction(f"{playername} stopped to rest from their injuries.")
+                                        time.sleep(2)
+                                        menu = 'maingame'
+                                        inmenu = True
+                                        slowprintintroduction(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\nTravel\nForage\nRest\nSave\n(Use the shift key to navigate)")
+                                        break
 
 
 
