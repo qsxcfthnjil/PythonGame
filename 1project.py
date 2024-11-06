@@ -2004,7 +2004,105 @@ ______ _                    _____ _                              _____          
 
 
 
+    elif progress == 20:
 
+        slowprintintroduction("...\n...\n...\n...")
+        time.sleep(2)
+        slowprintintroduction("\nYou make your way across a path many others have crossed before...")
+        time.sleep(3)
+        indialogue = True
+        dialogueprogress = 0
+        dialogue(playername,"(The scenery is changing...)")
+        while indialogue == True:
+            if cancontinue == True:
+                if keyboard.is_pressed('x'):
+                    if dialogueprogress == 0:
+                        dialogueprogress = 1
+                        dialogue(playername,"(It's getting darker and darker...)")
+                    elif dialogueprogress == 1:
+                        dialogueprogress = 2
+                        dialogue(playername,"(...Cells?)")
+                    elif dialogueprogress == 2:
+                        dialogueprogress = 3
+                        dialogue(playername,"(It's the dungeons!)")
+                    elif dialogueprogress == 3:
+                        dialogueprogress = 4
+                        dialogue(playername,f"{partnername.upper()}!!!")
+                    elif dialogueprogress == 4:
+                        dialogueprogress = 5
+                        dialogue("...",f"{partnername}! {partnername}! {partnername.lower()}....")
+                    elif dialogueprogress == 5:
+                        dialogueprogress = 6
+                        dialogue(playername,"(Oop. I probablly shouldn't have done that...)")
+                    elif dialogueprogress == 6:
+                        dialogueprogress = 7
+                        dialogue(playername,"(Ah, now I've done it. I hear footsteps approaching...)")
+                    elif dialogueprogress == 7:
+                        indialogue = False
+                        slowprintintroduction(f"\nA dark figure blocks the path further into the dungeon!")
+                        time.sleep(2)
+                        extraslowprintintroduction(f"\n{playername}! You're almost there!")
+                        time.sleep(2)
+                        slowprintintroduction("\nThe sound of a sword being drawn echoes throughout the empty dungeon.")
+                        time.sleep(2)
+                        clearboard()
+                        slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                        slowprint("The dark knight approaches!")
+                        time.sleep(2)
+                        slowprint(f"{playername}: \n> {partnername}! Just a little more!")
+
+                        stun = 0
+                        combo = 0
+                        incombat = True
+                        additivecomborefresh = 1
+                        additiverefresh = 0
+                        enemies = 1
+                        difficulty = 9
+                        refreshrate = 0.35
+                        is_fake = True
+                        tired = False
+                        battle = "Dark Knight"
+                        jkl = 1
+
+                        
+                        while incombat == True:
+                            refreshspeedcontrol()
+
+                        while incombat == False:
+                            if jkl == 1:
+                                jkl = 0
+                                dialogue(playername,f"(They're down...)")
+                                dialogueprogress = 1
+                            if cancontinue == True:
+                                if keyboard.is_pressed('x'):
+                                    if dialogueprogress == 1:
+                                        slowprintintroduction("\nThe sounds of heavy armour clanking around the hallways is deafaning")
+                                        dialogueprogress = 2
+                                        dialogue(playername,f"(Oh no... That's way too many to handle! I need to hurry and find {partnername}!)")
+                                    elif dialogueprogress == 2:
+                                        dialogue(playername,f"({partnername}! There you are!)")
+                                        dialogueprogress = 3
+                                    elif dialogueprogress == 3:
+                                        dialogueprogress = 4
+                                        dialogue(partnername,f"hey, {playername.lower()}, it's been a while...")
+                                    elif dialogueprogress == 4:
+                                        dialogueprogress = 5
+                                        dialogue(playername,f"(Holy moly, {partnername}, are you alright?)")
+                                    elif dialogueprogress == 5:
+                                        dialogueprogress = 6
+                                        dialogue(partnername,f"{playername}, I'm fine, really, but, I can't really see myself going anywhere any time soon...")
+                                    elif dialogueprogress == 6:
+                                        dialogueprogress = 7
+                                        dialogue(playername,f"(Don't worry! I'll think of a way...)")
+                                    elif dialogueprogress == 7:
+                                        dialogueprogress = 8
+                                        dialogue("???",f"Alright, that's enough. We have you surrounded. Put your sword on the ground and turn around slowly.")
+                                    elif dialogueprogress == 8:
+                                        dialogueprogress = 9
+                                        dialogue(playername,f"(We're done for... I can count at least 32 armed soldiers facing us down.)")
+                                    break
 
 
 
