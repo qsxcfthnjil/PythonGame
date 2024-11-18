@@ -151,6 +151,7 @@ def clearmessage():
     message = "Keep going!"
 stuntimer = TimerEx(interval_sec=6, function=unstun,)
 tiredtimer20 = TimerEx(interval_sec=20, function=enemytired,)
+tiredtimer30 = TimerEx(interval_sec=30, function=enemytired,)
 messageresettimer = TimerEx(interval_sec=2,function=resettotutorialmessage,)
 
 
@@ -612,6 +613,10 @@ def checkattack():
             kindness2 = 0
             chanceofclearattacks()
             refresh()
+            if battle == "Shadowking1":
+                refreshtimer = 0.6
+            if battle == "Shadowking2":
+                refreshtimer = 0.5
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -623,6 +628,8 @@ def checkattack():
                 tired = False
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
+                elif battle == "Shadowking2" and not tiredtimer30.is_alive():
+                    tiredtimer30.start()
     if reqkeys == "10":
         if keyboard.is_pressed('d') and not keyboard.is_pressed('j'):
             combo = combo + 1
@@ -632,6 +639,10 @@ def checkattack():
             kindness2 = 0
             chanceofclearattacks()
             refresh()
+            if battle == "Shadowking1":
+                refreshtimer = 0.6
+            if battle == "Shadowking2":
+                refreshtimer = 0.5
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -641,10 +652,10 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
-                if battle == "Shadowking1":
-                    refreshtimer = 0.6
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
+                elif battle == "Shadowking2" and not tiredtimer30.is_alive():
+                    tiredtimer30.start()
     if reqkeys == "11":
         if keyboard.is_pressed('d') and keyboard.is_pressed('j'):
             combo = combo + 1
@@ -654,6 +665,10 @@ def checkattack():
             combospeedup()
             chanceofclearattacks()
             refresh()
+            if battle == "Shadowking1":
+                refreshtimer = 0.6
+            if battle == "Shadowking2":
+                refreshtimer = 0.5
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -663,10 +678,10 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
-                if battle == "Shadowking1":
-                    refreshtimer = 0.6
                 if not tiredtimer20.is_alive():
                     tiredtimer20.start()
+                elif battle == "Shadowking2" and not tiredtimer30.is_alive():
+                    tiredtimer30.start()
     if reqkeys == "00":
         if keyboard.is_pressed('d') or keyboard.is_pressed('j'):
             if not combo == 0:
@@ -674,11 +689,10 @@ def checkattack():
             additivecomborefresh = 1
             combo = 0
             tired = False
-            if battle == "Shadowking1":
-                refreshtimer = 0.6
-            if not tiredtimer20.is_alive():
+            if not tiredtimer20.is_alive() and battle != "Shadowking2":
                 tiredtimer20.start()
-
+            elif battle == "Shadowking2" and not tiredtimer30.is_alive():
+                tiredtimer30.start()
 
 
 battle = "tutorial/test"
@@ -718,7 +732,7 @@ def checkstun():
                 
                 if not stuntimer.is_alive():
                     stuntimer.start()
-                if not tiredtimer20.is_alive() and not battle == "Archers":
+                if not tiredtimer20.is_alive() and not battle == "Archers" and not battle == "Shadowking2" and not battle == "Shadowking1":
                     tiredtimer20.start()
             else:
                 if revivalseeds >= 1:
@@ -740,6 +754,8 @@ def checkstun():
                         tiredtimer20.cancel()
                     if stuntimer.is_alive():
                         stuntimer.cancel()
+                    if speeduptimer.is_alive():
+                        speeduptimer.cancel()
                     message = "..."
                 elif battle == "Goblin":
                     incombat = False
@@ -1313,8 +1329,9 @@ startup = 0
 
 def speedup():
     global refreshrate
-    if refreshrate > 0.1:
-        refreshrate = refreshrate - 0.1
+    if refreshrate > 0.05:
+        refreshrate = refreshrate - 0.05
+
 
 
 def gamestart():
@@ -1652,6 +1669,7 @@ def travel():
     global revivalseeds
     global arrows
     global menuselection
+    global tiredtimer30
     menuselection = 0
     menu = "Traveling"
     if progress == 5:
@@ -2059,7 +2077,7 @@ ______ _                    _____ _                              _____          
                         enemies = 1
                         difficulty = 9
                         refreshrate = 0.35
-                        is_fake = True
+                        is_fake = False
                         tired = False
                         battle = "Dark Knight"
                         jkl = 1
@@ -2084,6 +2102,8 @@ ______ _                    _____ _                              _____          
                                         dialogueprogress = 3
                                     elif dialogueprogress == 3:
                                         dialogueprogress = 4
+                                        slowprintintroduction("...................")
+                                        time.sleep(1)
                                         dialogue(partnername,f"hey, {playername.lower()}, it's been a while...")
                                     elif dialogueprogress == 4:
                                         dialogueprogress = 5
@@ -2102,8 +2122,60 @@ ______ _                    _____ _                              _____          
                                         dialogue(playername,f"(We're done for... I can count at least 32 armed soldiers facing us down.)")
                                     elif dialogueprogress == 9:
                                         dialogueprogress = 10
-                                        dialogue(playername,f"")
-                                    break
+                                        dialogue(playername,f"(No, we can't give up now, not while we're so close to the end!)")
+                                    elif dialogueprogress == 10:
+                                        dialogueprogress = 11
+                                        dialogue(playername,f"COME AT US YO-")
+                                        dialogue("???","That's quite enough.")
+                                    elif dialogueprogress == 11:
+                                        dialogueprogress = 12
+                                        dialogue(playername,f"(Huh? That voice, it sounds familliar...)")
+                                    elif dialogueprogress == 12:
+                                        dialogueprogress = 13
+                                        dialogue("???","Stand down, my friends. There is no honor in felling a dead man.")
+                                    elif dialogueprogress == 13:
+                                        dialogueprogress = 14
+                                        dialogue("The Shadow King","It is only right that this journey of struggle is ended by my hand!\nFace me, brave soul who dared learn the mysteries of the world!\nLet your soul tell the tales of your pain!")
+                                    elif dialogueprogress == 14:
+                                        indialogue = False
+                                        slowprintintroduction(f"\nCalm your soul,\nRest your mind.\nFree the dead,\nOnes left alive.\nThat see the shadows fall\nDown from on high,\nThe world's fate, in your hand, lies.\n{playername}. Don't let everyone down!")
+                                        time.sleep(2)
+                                        slowprintintroduction("\nThe soldiers surrounding you begin to back off.\nThe sound of war drums, no, your own heartbeat, fills you with determination.")
+                                        time.sleep(2)
+                                        clearboard()
+                                        slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                                        slowprint("This is it!")
+                                        time.sleep(2)
+                                        slowprint(f"{partnername}: \n> {playername}! I believe in you!")
+
+                                        stun = 0
+                                        combo = 0
+                                        incombat = True
+                                        additivecomborefresh = 1
+                                        additiverefresh = 0
+                                        enemies = 3
+                                        difficulty = 9
+                                        refreshrate = 0.4
+                                        is_fake = False
+                                        tired = False
+                                        battle = "Shadowking2"
+                                        jkl = 1
+                                        slowerspeeduptimer = TimerEx(interval_sec=7,function=speedup,)
+                                        
+                                        while incombat == True:
+                                            refreshspeedcontrol()
+                                            if not slowerspeeduptimer.is_alive():
+                                                slowerspeeduptimer.start()
+                                        while incombat == False:
+                                            if jkl == 1:
+                                                jkl = 0
+                                                dialogue(playername,f"(They're down...)")
+                                                dialogueprogress = 1
+                                            if cancontinue == True:
+                                                if keyboard.is_pressed('x'):
+                                                    break
 
 
 
