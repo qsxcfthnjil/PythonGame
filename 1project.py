@@ -542,7 +542,7 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
-        elif battle == "Guard" or "Shadows":
+        elif battle == "Guard" or battle == "Shadows":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
@@ -551,7 +551,7 @@ def combospeedup():
             incombat = False
         additivecomborefresh = 1.4
     elif combo == 8:
-        if battle == "Monster House" or "Robber Gang" or "Knight" or "Guard Squad":
+        if battle == "Monster House" or battle == "Robber Gang" or battle == "Knight" or battle == "Guard Squad":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
@@ -562,7 +562,7 @@ def combospeedup():
     elif combo == 9:
         additivecomborefresh = 1.6
     elif combo == 10:
-        if battle == "Monster House 2" or "Raid" or "Monster House 3":
+        if battle == "Monster House 2" or battle == "Raid" or battle == "Monster House 3":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
@@ -571,7 +571,7 @@ def combospeedup():
             incombat = False
     elif combo == 11:
         additivecomborefresh = 1.7
-        if battle == "Void" or "Abyss" or "Self" or "Dark Knight":
+        if battle == "Void" or battle == "Abyss" or battle == "Self" or battle == "Dark Knight":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
@@ -712,6 +712,8 @@ def checkstun():
     global combo
     global oranberries
     global revivalseeds
+    global refreshrate
+    global battle
     if oranberries > 0:
         oranberries -= 1
         message = "You ate an Oran Berry and recovered from a stunnning attack!"
@@ -743,7 +745,8 @@ def checkstun():
                     is_fake = True
                     tired = False
                     clearenemyattacks()
-                    
+                    if battle == "Shadowking2":
+                        refreshrate = 0.5
                 elif battle == "tutorial/test":
                     incombat = False
                     clear()
@@ -783,6 +786,34 @@ def checkstun():
                     extraslowprintintroduction(f"{playername} was suprised by a goblin ambush on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
+                elif battle == "Shadowking2":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"{playername} tried their best on day {day}.")
+                    print("""⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣛⡉⢹⢛⣛⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡟⣫⡆⠀⣿⣷⣬⣼⡿⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣷⡘⢿⣾⡿⠿⠿⠛⢃⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣌⠫⠶⠿⠟⣋⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡏⠉⠏⠩⣭⣭⠉⠘⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡇⠠⠤⠴⢯⣭⢤⠤⢄⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⠋⠀⠀⠶⠬⢼⣸⣇⢠⠬⠼⠌⠀⠀⢹⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠙⠙⠛⠉⠀⠀⠀⠀⠠⣾⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⠏⠀⢀⣮⣅⣛⠻⠇⠿⢛⣃⣩⣴⠃⠀⠈⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣧⡀⠀⠘⢿⣿⠿⠟⠻⠟⣛⠻⢿⠿⠀⠀⣼⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⢀⠀⠀⠲⠈⣭⣭⢩⣭⡴⠐⠀⠀⡌⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⠇⣾⣷⣦⣀⠀⠀⠈⠀⠀⠀⣠⣴⣿⣿⡸⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡏⣼⣿⣿⣿⣿⣿⣶⣤⣀⣴⣿⣿⣿⣿⣿⣧⢹⣿⣿⣿⣿⣿
+⣿⣿⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿""")
+                    time.sleep(5)
+                    quit()
                 elif battle == "Thief":
                     incombat = False
                     if tiredtimer20.is_alive():
@@ -809,7 +840,7 @@ def checkstun():
                     extraslowprintintroduction(f"{playername} took a wrong turn and stumbled into the abyss on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
-                elif battle == "Monster House" or "Monster House 2":
+                elif battle == "Monster House" or battle == "Monster House 2":
                     incombat = False
                     if tiredtimer20.is_alive():
                         tiredtimer20.cancel()
@@ -991,6 +1022,7 @@ def checkstun():
                     extraslowprintintroduction(f"So close! {playername} was shot down by the castle archers while trying to form a magnagate on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
+
                     
         else:
             message = "Ah, you got hit!"
@@ -3452,6 +3484,14 @@ while menu == 'maingame':
                         oranberries = 2
                         revivalseeds = 1
                         progress = 11
+                        print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
+                        time.sleep(0.2)
+                        break
+                    elif password == "skipto18":
+                        menuselection = 1
+                        oranberries = 3
+                        revivalseeds = 3
+                        progress = 18
                         print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
                         time.sleep(0.2)
                         break
