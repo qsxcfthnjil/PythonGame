@@ -508,7 +508,7 @@ def combospeedup():
     global battle
 
     if combo == 3:
-        additivecomborefresh = 1.1
+        additivecomborefresh = 1.0
     elif combo == 5:
         if battle == "Goblin":
             if tiredtimer20.is_alive():
@@ -517,9 +517,9 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
-        additivecomborefresh = 1.2
+        additivecomborefresh = 1.1
     elif combo == 6:
-        additivecomborefresh = 1.3
+        additivecomborefresh = 1.2
         if battle == "Curse":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
@@ -549,7 +549,7 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
-        additivecomborefresh = 1.4
+        additivecomborefresh = 1.3
     elif combo == 8:
         if battle == "Monster House" or battle == "Robber Gang" or battle == "Knight" or battle == "Guard Squad":
             if tiredtimer20.is_alive():
@@ -558,9 +558,9 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False
-        additivecomborefresh = 1.5
+        additivecomborefresh = 1.4
     elif combo == 9:
-        additivecomborefresh = 1.6
+        additivecomborefresh = 1.5
     elif combo == 10:
         if battle == "Monster House 2" or battle == "Raid" or battle == "Monster House 3":
             if tiredtimer20.is_alive():
@@ -570,7 +570,7 @@ def combospeedup():
             time.sleep(2)
             incombat = False
     elif combo == 11:
-        additivecomborefresh = 1.7
+        additivecomborefresh = 1.5
         if battle == "Void" or battle == "Abyss" or battle == "Self" or battle == "Dark Knight":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
@@ -742,13 +742,15 @@ def checkstun():
                     stuntimer.start()
                 if not tiredtimer20.is_alive() and not battle == "Archers" and not battle == "Shadowking2" and not battle == "Shadowking1":
                     tiredtimer20.start()
+                if not tiredtimer30.is_alive() and battle == "Shadowking2":
+                    tiredtimer30.start()
             else:
                 if revivalseeds >= 1:
                     message = "Your bag lights up as one Revive Seed is consumed."
                     revivalseeds -= 1
                     stun = 0
                     combo = 0
-                    is_fake = True
+                    is_fake = False
                     tired = False
                     clearenemyattacks()
                     if battle == "Shadowking2":
@@ -1243,6 +1245,7 @@ def instantcutscene(string):
     global cancontinue
     cancontinue = False
     print(string + "\n(x)")
+    time.sleep(2)
     cancontinue = True
         
         
@@ -2132,7 +2135,7 @@ ______ _                    _____ _                              _____          
                             if cancontinue == True:
                                 if keyboard.is_pressed('x'):
                                     if dialogueprogress == 1:
-                                        slowprintintroduction("\nThe sounds of heavy armour clanking around the hallways is deafaning")
+                                        slowprintintroduction("\nThe sounds of heavy armour clanking around the hallways is deafaning.")
                                         time.sleep(2)
                                         dialogueprogress = 2
                                         dialogue(playername,f"(Oh no... That's way too many to handle! I need to hurry and find {partnername}!)")
@@ -3591,6 +3594,14 @@ while menu == 'maingame':
                         oranberries = 3
                         revivalseeds = 3
                         progress = 18
+                        print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
+                        time.sleep(0.2)
+                        break
+                    elif password == "skipto20qsxc":
+                        menuselection = 1
+                        oranberries = 3
+                        revivalseeds = 6
+                        progress = 20
                         print(f"-----------------\n{playername}\n-----------------\nDay {day}\nRevival seeds: {revivalseeds}\nOran Berries: {oranberries}\nProgress: {progress}\n\nWhat do you do?\n> Travel\nForage\nRest\nSave\n(Use the control key to select)")
                         time.sleep(0.2)
                         break
