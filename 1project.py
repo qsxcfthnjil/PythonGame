@@ -581,7 +581,13 @@ def combospeedup():
     
     
     elif combo == 12:
-        pass
+        if battle == "Shadowking2":
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
+            time.sleep(2)
+            incombat = False   
     elif combo == 15:
         if tiredtimer20.is_alive():
             tiredtimer20.cancel()
@@ -2127,6 +2133,7 @@ ______ _                    _____ _                              _____          
                                 if keyboard.is_pressed('x'):
                                     if dialogueprogress == 1:
                                         slowprintintroduction("\nThe sounds of heavy armour clanking around the hallways is deafaning")
+                                        time.sleep(2)
                                         dialogueprogress = 2
                                         dialogue(playername,f"(Oh no... That's way too many to handle! I need to hurry and find {partnername}!)")
                                     elif dialogueprogress == 2:
@@ -2194,7 +2201,7 @@ ______ _                    _____ _                              _____          
                                         tired = False
                                         battle = "Shadowking2"
                                         jkl = 1
-                                        slowerspeeduptimer = TimerEx(interval_sec=7,function=speedup,)
+                                        slowerspeeduptimer = TimerEx(interval_sec=10,function=speedup,)
                                         
                                         while incombat == True:
                                             refreshspeedcontrol()
@@ -2203,10 +2210,102 @@ ______ _                    _____ _                              _____          
                                         while incombat == False:
                                             if jkl == 1:
                                                 jkl = 0
-                                                dialogue(playername,f"(They're down...)")
+                                                dialogue(playername,f"(It's finally over...?)")
                                                 dialogueprogress = 1
                                             if cancontinue == True:
                                                 if keyboard.is_pressed('x'):
+                                                    if dialogueprogress == 1:
+                                                        dialogueprogress = 2
+                                                        time.sleep(2)
+                                                        instantcutscene("""                                                                                                                                           
+                                                                   
+                                                         :                                                                                 
+                                                         %=                                                                                
+                                                       +.*  %-                                                                             
+                                                     --  :=    #                                                                           
+                                                    #     *     :+                                                                         
+                                                   *      #      :=                                                                        
+                          ##:                      +      *:..    %                                                                        
+                         % =   #*                  +    -.-=... ..#  ++                                                                    
+                        %  :     =%                #  ..+.:#......%=    +.                                    -*%                          
+                       %    #...   #-          #*+*%+ ..-..%..=.-#       =                                +#   : *                         
+ .+                    %   ..+....  +-  .**   =      -%.::-#:.+:%..+##=.  +                             %: ....-  %                        
+  %*+                  %    .=:....  #%.    %%   :-++  *=.*+#.=%.. #%%%:  %   :=       *              =# ....:#    %                     . 
+  %  +%:               %   ...#....:%        %  ..-#+:* +++=%.-#. %%%#%%:.%   =+                     +# .....--    %                   =%: 
+  #:    %-          *%#==#%%:.:=...%         =-.:%%%%%%=.#-#%=-# +%%    ##                     +    #% .....+#..   %                 #+ #  
+  :*     +#        %        #%-*:.*.  =:++:. =%-=%   *%%..*%%#.% *%-    %.                   :.   .:  *.....+:.    %               %.   %  
+   %      #*  +%* %    ..:-*.:%:#:%  =#%%%%#.# ##=    #%**%%%%%#+=-=#%#%%#                   #  -=+% * *...=*   *-   :*          %:    -%  
+   *=    .:%%-    %  .%%%%%%*-.%--# +*%#   #*    #  ##+*##%%%%%%%%%%-.   =            :      # ..-+-# +-#.-#. *  ..             %:     *=  
+    %   ..**   .  .# -%%: -%%%-+**--=#%-   =  :*%%%%%%%%=.  ..:-++===-..-.            +      %-:%%%%%# **+-= *:*-=+=:   *+#+#%-+*      %   
+    %-  .+* :..=-  %#.%=    +%%-%%%#=:+%%%%%%%=   .+:....-=-+#%%%%%%%%%                       %+#  :%%--*##.#++%%%%%%#  #      %:.    -%   
+    .% *-% -:%%%%%.+ %#%    *%+=+#%%%%+    .---..-=*#%%%%    .:-=- %%                      -:  #.   *%+.%*:#:%%%#  #%%  # .:==  +*. . #=   
+     %-:%* :%%   %#    =%.-%%%%#-      ..-##%%%%%#%%%+.+%.*======+ % +*                   *=*#%%%%%%%#*##%###%%     %+:%#.*%%+.= #+.-.%    
+     .% %= #%    %   =#%%#.     ..:=#%%%%%%#:-.=%%%=+%:*%*++=======% *=:        :-:*    :#:-:       =#%%%%%###%#   :%% +%=%%%%%-:.%#.+*    
+      %--+:%%%%%%%%%+    ..:-*%%%%=.=****+  *+ %=+%%%+*#%% *======+#::-=        *+- =+#%%%%%%%#+-:....     :+%%%%%%=    *%%   %%: #% %     
+       %%%..%%%#     ..+%%%%%=.# *=......:+. #  +#*=%%#.*%.##%#=.  =% =-           #-=#=+%#+  .=%%%%%%%%*.....    :#%%%%..%   :%* #-=%     
+       *%%%#     .=#%%=#:+ -: # *:....-##+= +* : .==:..-*%%#%%%#%-.%              :=#*%%%%=+#.*+ .+*+**=.=%%%%#+#.-.    :#%%%#=*%+%.%.     
+      -%#    .-#%%%%%..::%#%* # =*###*+#=  %%:.=%%%%*+:      +.=:=#               *:*%%#=%%#:-# :=.......=+.#.+#%%%%%+:..   .*%%%: *%      
+       % ..%%%%%#:-#%.  *+:.-%:%       -#%%%#:    :=*#%%%%%%%%+-:%                %.  .+%#-..-%: #=%*:....-# #--*+%.=.-%%%+..    %%%:      
+       -%%%#=* :# %:=%  +.%%*%..*%%%%+.    ....-*%%%#**#******#%%%               %=+#%%%%#=+=-+%#  *****#*#. #-%+=#=..-%:=#%%%+:.   %.     
+        :%..#%- %+%%+%   *+%%%%* =  :.=.-*%%%*=..-#%%%%%%%%%%%%#*-     *+      %*.-+=::==.  .+#%%%%#:      =%-%:.=:%  *%-=.#= **%#:=%      
+         %-=*   %+ *%%%*%#.    ..=%%%*-..=*#%%%%%%%%%%#**              +##    %.  .-*%%%#*+-:-=-  ::-.+%%%%#.-%##%:.  %#+%:% .*:.:%%       
+         %=  %%%+-.*#:    #-*%#+:.-#%%%%%%%%%%%+#+:%=#==*              #.=  --%%%%%%%#*=-..:=*#%%%%%%+-.    :+%%%*#  *%%%==% -+*::%#       
+         %%%*. =%.   .:*%%- .*%%%%%%%%%%+*.*:=+:#--#+# ++              +#   :#:.==#*#%%%%%%%%%%%#=. .=#%%%*-.. =   #%%=  .*%%+  +#%+       
+         +# ==  #.-#%= .=%%%%%%%%%%=%--.=*:+:*-=**++#*  +    +*            -%**+:.%::-:.*.=.+=##%%%%%%%%#+:.:*%%%#+     *#- ++%%++%.       
+         %#   .#%=  *%%%%%%%%#:+-=*=##=:+==--*:+***-#*               . *-  *-++=+:%.+:-:=.=.+-=-.+.=.=#%%%%%%%%+. :*%#-.    +%:.-%%        
+         #*.-#. -%%%%%%%%:#.%:::**-**%=-=-*:**-#*%##%%  ==-+              %:=-=+*=#.*:-=-:=:==-=.*.*.:-:+:*:#%%%%%%%*. .#%+.    #%#        
+           +%%#+:.  .:=+*##%%%%%%%%%%%%%%%%%%##*++=-:%%+ =-..= ::-       :%.+===*++.*-:+:=-=-+:+:*:*.=:--:=.=:-*=%%%%%%%#: .**:.  %        
+                =#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#  -##:-         *%%%%%%%%#*##=#:+:*:*:*-+:+.+.*:=::-==%*%%%%%%%%%*+-  *#%:        
+                              .::--====--:::                             #+=:..   ..:-=*#%%%%%%%%%%%%%%%%%%%%%#*+-:.  .:-+#%%%#.           
+                                                                         %%%%%%%%%%%%%%%%%%%%##########%%%%%%%%%%%%%%%#*-                  
+                                                                   =                       :-----------.                                   """)
+                                                        time.sleep(1)
+                                                    if dialogueprogress == 2:
+                                                        dialogueprogress = 3
+                                                        dialogue(playername,f"...{partnername}? Let's get out of here.")
+                                                    if dialogueprogress == 3:
+                                                        dialogueprogress = 4
+                                                        dialogue(partnername,"...Yeah.")
+                                                    if dialogueprogress == 4:
+                                                        slowprintintroduction(f"\nAfter the Shadow King was defeated, {partnername} and {playername} quickly fled the castle as to not get caught by the lingering forces of the Shadow king.")
+                                                        time.sleep(7)
+                                                        slowprintintroduction(f"\nThis was probablly not necessary, however, as shortly after the King's demise, the forces in the castle quickly came into disarray.")
+                                                        time.sleep(7)
+                                                        slowprintintroduction(f"\nThe void left in the fallen King's presence caused a power struggle on a scale the world hasn't seen in millenia. The resulting chaos delt a heavier blow to the surviving supporters of the King than any adventurer ever could.")
+                                                        time.sleep(7)
+                                                        slowprintintroduction(f"\nAs for {playername} and {partnername}...")
+                                                        time.sleep(3)
+                                                        slowprintintroduction(f"\nAfter taking part in enough adventures to last multiple lifetimes, they were content to live out the rest of their days away from trouble and prying eyes.")
+                                                        time.sleep(6)
+                                                        slowprintintroduction(f"\nThe story of {playername} and {partnername} eventually became a legend that would be told for many ages to come.")
+                                                        time.sleep(6)
+                                                        extraslowprintintroduction(f"\nThat was, until one day, in the far, distant future...")
+                                                        time.sleep(3)
+                                                        dialogueprogress = 5
+                                                        dialogue("???",f"Found it.")
+                                                    if dialogueprogress == 5:
+                                                        dialogueprogress = 6
+                                                        dialogue("???",f"After years of searching, I've found it. The Soul Flower.")
+                                                    if dialogueprogress == 6:
+                                                        extraslowprintintroduction("\n.....................")
+                                                        dialogueprogress = 7
+                                                        dialogue("???",f"So that's... what... happened.......")
+                                                    if dialogueprogress == 7:
+                                                        dialogueprogress = 8
+                                                        dialogue("???",f"The fools. They've only done what they must. The timeline is safe. I. Am safe. {playername}? {partnername}? I'll be looking forwards to seeing you two again.")
+                                                    if dialogueprogress == 8:
+                                                        slowprintintroduction("""
+  _______ _            ______           _   
+ |__   __| |          |  ____|         | |  
+    | |  | |__   ___  | |__   _ __   __| |  
+    | |  | '_ \ / _ \ |  __| | '_ \ / _` |  
+    | |  | | | |  __/ | |____| | | | (_| |_ 
+    |_|  |_| |_|\___| |______|_| |_|\__,_(_)
+                                            
+                                            
+""")
+                                                        time.sleep(3)
+                                                        endgame()
                                                     break
 
 
