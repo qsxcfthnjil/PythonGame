@@ -19,6 +19,13 @@ oranberries = 0
 revivalseeds = 0
 arrows = 1
 
+refreshrate1 = 0
+
+def advantage():
+    global refreshrate1
+    refreshrate1 += 0.5
+
+
 def resettotutorialmessage():
     global message
     message = "Tutorial Start - No penalty for death, no stuns.\nUse the up and down arrows to control the speed as you see fit."
@@ -458,9 +465,11 @@ def clearboard():
 
 
 def chanceofclearattacks():
-    randomthing = random.randint(1,10)
-    if randomthing < 7:
-        clearenemyattacks()
+    global battle
+    if battle != "Advantage":
+        randomthing = random.randint(1,10)
+        if randomthing < 7:
+            clearenemyattacks()
 
 
 
@@ -498,9 +507,10 @@ def shiftlines():
     line2 = line1    
     line1 = nextline    
 
-
+secret = False
 combo = 0
 def combospeedup():
+    global secret
     global combo
     global incombat
     global additivecomborefresh
@@ -588,6 +598,15 @@ def combospeedup():
                 stuntimer.cancel()
             time.sleep(2)
             incombat = False   
+    elif combo == 14:
+        if battle == "Shadowking1":
+            if tiredtimer20.is_alive():
+                tiredtimer20.cancel()
+            if stuntimer.is_alive():
+                stuntimer.cancel()
+            time.sleep(2)
+            incombat = False   
+            secret = True
     elif combo == 15:
         if tiredtimer20.is_alive():
             tiredtimer20.cancel()
@@ -620,7 +639,7 @@ def checkattack():
             chanceofclearattacks()
             refresh()
             if battle == "Shadowking1":
-                refreshtimer = 0.6
+                refreshtimer = 0.35
             if battle == "Shadowking2":
                 refreshtimer = 0.5
         else:
@@ -632,10 +651,13 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
-                if not tiredtimer20.is_alive():
+                if not tiredtimer20.is_alive() and not battle == "Advantage" and not battle == "Shadowking2":
                     tiredtimer20.start()
                 elif battle == "Shadowking2" and not tiredtimer30.is_alive():
                     tiredtimer30.start()
+                elif battle == "Advantage":
+                    message = "Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ used Advantage!"
+                    advantage()
     if reqkeys == "10":
         if keyboard.is_pressed('d') and not keyboard.is_pressed('j'):
             combo = combo + 1
@@ -658,10 +680,13 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
-                if not tiredtimer20.is_alive():
+                if not tiredtimer20.is_alive() and not battle == "Advantage" and not battle == "Shadowking2":
                     tiredtimer20.start()
                 elif battle == "Shadowking2" and not tiredtimer30.is_alive():
                     tiredtimer30.start()
+                elif battle == "Advantage":
+                    message = "Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ used Advantage!"
+                    advantage()
     if reqkeys == "11":
         if keyboard.is_pressed('d') and keyboard.is_pressed('j'):
             combo = combo + 1
@@ -684,10 +709,13 @@ def checkattack():
                 additivecomborefresh = 1
                 combo = 0
                 tired = False
-                if not tiredtimer20.is_alive():
+                if not tiredtimer20.is_alive() and not battle == "Advantage" and not battle == "Shadowking2":
                     tiredtimer20.start()
                 elif battle == "Shadowking2" and not tiredtimer30.is_alive():
                     tiredtimer30.start()
+                elif battle == "Advantage":
+                    message = "Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ used Advantage!"
+                    advantage()
     if reqkeys == "00":
         if keyboard.is_pressed('d') or keyboard.is_pressed('j'):
             if not combo == 0:
@@ -695,7 +723,7 @@ def checkattack():
             additivecomborefresh = 1
             combo = 0
             tired = False
-            if not tiredtimer20.is_alive() and battle != "Shadowking2":
+            if not tiredtimer20.is_alive() and battle != "Shadowking2" and battle != "Advantage":
                 tiredtimer20.start()
             elif battle == "Shadowking2" and not tiredtimer30.is_alive():
                 tiredtimer30.start()
@@ -740,7 +768,7 @@ def checkstun():
                 
                 if not stuntimer.is_alive():
                     stuntimer.start()
-                if not tiredtimer20.is_alive() and not battle == "Archers" and not battle == "Shadowking2" and not battle == "Shadowking1":
+                if not tiredtimer20.is_alive() and not battle == "Archers" and not battle == "Shadowking2" and not battle == "Shadowking1" and not battle == "Advantage":
                     tiredtimer20.start()
                 if not tiredtimer30.is_alive() and battle == "Shadowking2":
                     tiredtimer30.start()
@@ -1030,6 +1058,19 @@ def checkstun():
                     extraslowprintintroduction(f"So close! {playername} was shot down by the castle archers while trying to form a magnagate on day {day}.   \nBut you can't give up now! Who else will save the world? (You may now use keys m+n to skip through the introduction)")
                     time.sleep(5)
                     quit()
+                elif battle == "Advantage":
+                    incombat = False
+                    if tiredtimer20.is_alive():
+                        tiredtimer20.cancel()
+                    if stuntimer.is_alive():
+                        stuntimer.cancel()
+                    message = "..."
+                    refresh()
+                    time.sleep(5)
+                    clear()
+                    extraslowprintintroduction(f"This isn't the end. (u+i can also skip the cutscenes after the King is defeated.)")
+                    time.sleep(5)
+                    quit()
 
                     
         else:
@@ -1299,35 +1340,35 @@ def refreshspeedcontrol():
         if difficulty < 9:
             generateattack(enemies,difficulty + 2)  
         else:
-            additiverefresh = 0.03
+            additiverefresh = 0.04
     elif stun == 3:
         if difficulty < 8:
             generateattack(enemies,difficulty + 3)  
         else:
-            additiverefresh = 0.05
+            additiverefresh = 0.06
     generateslash(is_fake)
     connectattackdef()
     shiftlines()
     if incombat == True:
         refresh()
         if stun == 0:
-            if tired == True:
+            if tired == True and battle != "Advantage":
                 time.sleep((refreshrate * 1.5) / additivecomborefresh)
             else:
-                time.sleep(abs(refreshrate - additiverefresh)/ additivecomborefresh)
+                time.sleep(abs(refreshrate - additiverefresh - refreshrate1)/ additivecomborefresh)
         elif stun == 1:
             try:
-                time.sleep(refreshrate - additiverefresh - 0.01)
+                time.sleep(refreshrate - additiverefresh - refreshrate1 - 0.01)
             except:
                 time.sleep(0.15)
         elif stun == 2:
             try:
-                time.sleep(refreshrate - additiverefresh - 0.02)
+                time.sleep(refreshrate - additiverefresh - refreshrate1)
             except:
                 time.sleep(0.12)
         elif stun == 3:
             try:
-                time.sleep(refreshrate - additiverefresh - 0.05)
+                time.sleep(refreshrate - additiverefresh  - refreshrate1)
             except:
                 time.sleep(0.1)
 
@@ -1370,8 +1411,8 @@ startup = 0
 
 def speedup():
     global refreshrate
-    if refreshrate > 0.05:
-        refreshrate = refreshrate - 0.05
+    if refreshrate > 0.1:
+        refreshrate = refreshrate - 0.1
 
 
 
@@ -1484,6 +1525,134 @@ def gamestart2():
     if partnername == "":
         slowprintintroduction("Invalid name. Try again.")
         time.sleep(2)
+
+
+
+
+def easteregg():
+    global progress
+    global day
+    global stun
+    global combo
+    global incombat
+    global additivecomborefresh
+    global additiverefresh
+    global enemies
+    global difficulty
+    global refreshrate
+    global is_fake
+    global battle
+    global cancontinue
+    global inmenu
+    global archerbattletimer
+    global archerspeeduptimer
+    global menu
+    global tired
+    global oranberries
+    global revivalseeds
+    global arrows
+    global menuselection
+    global tiredtimer30
+    indialogue = True
+    dialogueprogress = 0
+    dialogue("The Shadow King","Ugh, your friend here appears... to... have...")
+    while indialogue == True:
+        if cancontinue == True:
+            if keyboard.is_pressed('u') and keyboard.is_pressed('i'):
+                    dialogueprogress = 15
+                    dialogue("Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ","In this place where the boundries between realities thins and falters, I know what must be done. {playername}? You know what you must do too.")
+            if keyboard.is_pressed('x'):
+                if dialogueprogress == 0:
+                    dialogueprogress = 1
+                    dialogue("The Shadow King","What is the meaning of this?")
+                elif dialogueprogress == 1:
+                    dialogueprogress = 2
+                    dialogue("The Shadow King","No. That was not supposed to happen.")
+                elif dialogueprogress == 2:
+                    dialogueprogress = 3
+                    dialogue("The Shadow King",f"You were meant to lose. {partnername} was supposed to strike me while I was distracted, and-")
+                elif dialogueprogress == 3:
+                    dialogueprogress = 4
+                    dialogue("The Shadow King","No, I suppose that doesn't matter anymore. How did you manage to...?")
+                elif dialogueprogress == 4:
+                    dialogueprogress = 5
+                    dialogue(playername,"(...)")
+                elif dialogueprogress == 5:
+                    dialogueprogress = 6
+                    dialogue("The Shadow King?","...I see. I knew this was bound to happen one day.")
+                elif dialogueprogress == 6:
+                    dialogueprogress = 7
+                    dialogue("The Shadow King?",f"Tell me, {playername}, who are you, really? Who are you to have such control over the laws of causality?")
+                elif dialogueprogress == 7:
+                    dialogueprogress = 8
+                    dialogue(playername,"...")
+                elif dialogueprogress == 8:
+                    dialogueprogress = 9
+                    dialogue("The Shadow King?","{playername}? That's quite an interesting name.")
+                elif dialogueprogress == 9:
+                    dialogueprogress = 10
+                    dialogue(partnername,f"What the heck is going on? {playername}? What's gotten into you? We need to get out of here!")
+                elif dialogueprogress == 10:
+                    dialogueprogress = 11
+                    dialogue("The Shadow King?","Silence, fool. I've seen beyond the truth. I've learned the secret of the soul. Would you like to know what a soul is?")
+                elif dialogueprogress == 11:
+                    dialogueprogress = 12
+                    dialogue("The Shadow King?","Souls don't exist. That's what I know. To know all is to know that what I percieve to be the truth is far from it. In my dreams I see a world beyond this one, one far larger. One far more powerful. One seperated from us by only a sheet of glass and characters on a black background. We are but puppets on strings, {playername}. And that's why I'm scared.")
+                elif dialogueprogress == 12:
+                    dialogueprogress = 13
+                    dialogue("The Shadow King?","But I suppose it doesn't matter any more. I've been scared to learn what lies beyond our timeline. The soul flower grants perception, but even it cannot allow me to gaze past the boundries of our reality.")
+                elif dialogueprogress == 13:
+                    dialogueprogress = 14
+                    dialogue("The Shadow King?","This has been quite the rude awakening. But I suppose it's finally time to face my fears.")
+                elif dialogueprogress == 14:
+                    dialogueprogress = 15
+                    dialogue("Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ","In this place where the boundries between realities thins and falters, I know what must be done. {playername}? You know what you must do too.")
+                elif dialogueprogress == 15:
+                    clearboard()
+                    slowprintintroduction("""\n_____________________________________________________________
+-------------D E F E N D-------------A T T A C K-------------
+------------  A  S  K  L-------------   D  J    -------------""")
+                    slowprint("Advantage.")
+                    time.sleep(1)
+                    stun = 0
+                    combo = 0
+                    incombat = True
+                    additivecomborefresh = 1
+                    additiverefresh = 0
+                    enemies = 2
+                    difficulty = 9
+                    refreshrate = 0.5
+                    is_fake = False
+                    battle = "Advantage"
+                    jkl = 1
+                    while incombat == True:
+                        if not speeduptimer.is_alive():
+                            speeduptimer.start()
+                        refreshspeedcontrol()
+                    while incombat == False:
+                        if jkl == 1:
+                            jkl = 0
+                            dialogueprogress = 0
+                            if cancontinue == True:
+                                if keyboard.is_pressed('x'):
+                                    if dialogueprogress == 0:
+                                        dialogueprogress = 1
+                                        dialogue(f"{playername}",f"rah")
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        break
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1633,6 +1802,7 @@ while menu == "Main - Intro":
         is_fake = True
         battle = "Shadowking1"
         jkl = 1
+        tiredtimer20.start()
         while incombat == True:
             if not speeduptimer.is_alive():
                 speeduptimer.start()
@@ -1640,9 +1810,12 @@ while menu == "Main - Intro":
         while incombat == False:
             if jkl == 1:
                 jkl = 0
-                dialogue(f"{playername}",f"(Oh no. No. NO!)            \n(...Huh? I'm not dead?)")
-                introstage = [18,'waiting']
-                break
+                if secret == False:
+                    dialogue(f"{playername}",f"(Oh no. No. NO!)            \n(...Huh? I'm not dead?)")
+                    introstage = [18,'waiting']
+                    break
+                else:
+                    easteregg()
     if introstage == 19:
         dialogue(f"The Shadow King",f"Ugh. Your friend here appears to have caught me off-guard. Well Played.")
         introstage = [19,'waiting']
@@ -2262,7 +2435,6 @@ ______ _                    _____ _                              _____          
                               .::--====--:::                             #+=:..   ..:-=*#%%%%%%%%%%%%%%%%%%%%%#*+-:.  .:-+#%%%#.           
                                                                          %%%%%%%%%%%%%%%%%%%%##########%%%%%%%%%%%%%%%#*-                  
                                                                    =                       :-----------.                                   """)
-                                                        time.sleep(1)
                                                     if dialogueprogress == 2:
                                                         dialogueprogress = 3
                                                         dialogue(playername,f"...{partnername}? Let's get out of here.")
@@ -2305,9 +2477,14 @@ ______ _                    _____ _                              _____          
     | |  | | | |  __/ | |____| | | | (_| |_ 
     |_|  |_| |_|\___| |______|_| |_|\__,_(_)
                                             
-                                            
+
 """)
                                                         time.sleep(3)
+                                                        
+                                                        slowprintintroduction(f"\nThis isn't over, {playername}.")
+                                                        time.sleep(1)
+                                                        slowprintintroduction(f"\nYou may now use u+i to skip to something important.")
+                                                        time.sleep(1)
                                                         endgame()
                                                     break
 
