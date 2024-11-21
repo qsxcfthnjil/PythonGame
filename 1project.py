@@ -627,6 +627,7 @@ def checkattack():
     global refreshrate
     global kindness2
     global refreshtimer
+    global refreshrate1
     reqkeys = currentline[2]
     if reqkeys == "01":
         if keyboard.is_pressed('j') and not keyboard.is_pressed('d'):
@@ -639,9 +640,11 @@ def checkattack():
             chanceofclearattacks()
             refresh()
             if battle == "Shadowking1":
-                refreshtimer = 0.35
+                refreshtimer = 0.4
             if battle == "Shadowking2":
                 refreshtimer = 0.5
+            if refreshrate1 > 0.1:
+                refreshrate1 -= 0.1
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -668,9 +671,11 @@ def checkattack():
             chanceofclearattacks()
             refresh()
             if battle == "Shadowking1":
-                refreshtimer = 0.6
+                refreshtimer = 0.4
             if battle == "Shadowking2":
                 refreshtimer = 0.5
+            if refreshrate1 > 0.1:
+                refreshrate1 -= 0.1
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -697,9 +702,11 @@ def checkattack():
             chanceofclearattacks()
             refresh()
             if battle == "Shadowking1":
-                refreshtimer = 0.6
+                refreshtimer = 0.4
             if battle == "Shadowking2":
                 refreshtimer = 0.5
+            if refreshrate1 > 0.1:
+                refreshrate1 -= 0.1
         else:
             if kindness2 == 0:
                 kindness2 = 1
@@ -1320,6 +1327,7 @@ def slowprint(string):
 def refreshspeedcontrol():
     global stun
     global difficulty
+    global refreshrate1
     global enemies
     global additivecomborefresh
     global additiverefresh
@@ -1550,6 +1558,7 @@ def easteregg():
     global tired
     global oranberries
     global revivalseeds
+    global refreshrate1
     global arrows
     global menuselection
     global tiredtimer30
