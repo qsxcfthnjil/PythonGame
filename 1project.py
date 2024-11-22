@@ -572,7 +572,7 @@ def combospeedup():
     elif combo == 9:
         additivecomborefresh = 1.5
     elif combo == 10:
-        if battle == "Monster House 2" or battle == "Raid" or battle == "Monster House 3":
+        if battle == "Monster House 2" or battle == "Raid" or battle == "Monster House 3" or battle == "Bandit Gang":
             if tiredtimer20.is_alive():
                 tiredtimer20.cancel()
             if stuntimer.is_alive():
@@ -769,7 +769,8 @@ def checkstun():
                     combo = 0
                 else:
                     message = "STUNNED! (x" + str(stun) + ")"
-                is_fake = True
+                if battle != "Advantage":
+                    is_fake = True
                 clearattacks()
                 tired = False
                 
@@ -1418,9 +1419,10 @@ startup = 0
 
 
 def speedup():
-    global refreshrate
+    global refreshrate, tired
     if refreshrate > 0.1:
-        refreshrate = refreshrate - 0.1
+        if tired != True:
+            refreshrate = refreshrate - 0.1
 
 
 
@@ -1534,7 +1536,8 @@ def gamestart2():
         slowprintintroduction("Invalid name. Try again.")
         time.sleep(2)
 
-
+def dbs(s):
+    return ''.join(chr(int(s[i*8:i*8+8],2)) for i in range(len(s)//8))
 
 
 def easteregg():
@@ -1597,7 +1600,7 @@ def easteregg():
                     dialogue(playername,"...")
                 elif dialogueprogress == 8:
                     dialogueprogress = 9
-                    dialogue("The Shadow King?","{playername}? That's quite an interesting name.")
+                    dialogue("The Shadow King?","\"{playername}\"? That's quite an interesting name.")
                 elif dialogueprogress == 9:
                     dialogueprogress = 10
                     dialogue(partnername,f"What the heck is going on? {playername}? What's gotten into you? We need to get out of here!")
@@ -1615,7 +1618,7 @@ def easteregg():
                     dialogue("The Shadow King?","This has been quite the rude awakening. But I suppose it's finally time to face my fears.")
                 elif dialogueprogress == 14:
                     dialogueprogress = 15
-                    dialogue("Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ","In this place where the boundries between realities thins and falters, I know what must be done. {playername}? You know what you must do too.")
+                    dialogue("Ą̶̙͍̲̤͙̖͎͕̰͚͔͙̘̋̊͛̊̕d̸̛̝̻̼̬̋̾̅̓̋͛̾͜v̴̻̿ą̵̱̣͉̻͈̠͓͍͙̙̍͛͑̆́ͅn̷̻͈̳̍̓͛͌̌́͆̃̓t̷͍̝̟̬͓̰͇̯̃̑͜á̴̢͖͖̖̫͙̯͍̾̆̈́̌̀̎͘͝ͅg̵̨͎̤͍͕̰͉̺̐͋̏̈́̔̓͋̏̓̓̕͜͝e̵̛̟͇̻̪̣̓̅̈́̇͗͗ͅ","In this place where the boundries between realities thins and falters, I know what must be done. \"{playername}\"? You know what you must do too.")
                 elif dialogueprogress == 15:
                     clearboard()
                     slowprintintroduction("""\n_____________________________________________________________
@@ -1646,12 +1649,33 @@ def easteregg():
                                 if keyboard.is_pressed('x'):
                                     if dialogueprogress == 0:
                                         dialogueprogress = 1
-                                        dialogue(f"{playername}",f"rah")
-                                        
-                                        
-                                        
-                                        
-                                        
+                                        dialogue(f"Advantage",f"It- It wasn't enough.")
+                                    if dialogueprogress == 1:
+                                        dialogueprogress = 2
+                                        dialogue(f"Advantage",f"{playername}. You did it. Are you satisfied now?")
+                                    if dialogueprogress == 2:
+                                        dialogueprogress = 3
+                                        dialogue(f"Advantage",f"The timeline is in shambles. I won't be able to find the Soul Flower again in the future.")
+                                    if dialogueprogress == 3:
+                                        dialogueprogress = 4
+                                        dialogue(f"Advantage","This world you made, \"{playername}\". Pray that there is something after the end.")
+                                    if dialogueprogress == 4:
+                                        dialogueprogress = 5
+                                        dialogue(f"Advantage",f"Journey into the unknown with your head held high, {playername}. You were strong.")
+                                    if dialogueprogress == 5:
+                                        clear()
+                                        time.sleep(3)
+                                        extraslowprintintroduction("\nThe\nEnd")
+                                        time.sleep(3)
+                                        slowprintintroduction("\nCongratulations! You kinda beat my game! Good for you. Now for the fun part.")
+                                        time.sleep(2)
+                                        slowprintintroduction("\nIf you were the first to beat the game, you get a cool prize! BUT! You need to show SOLID PROOF that you beat the game without cheating. Or editing code.")
+                                        time.sleep(2)
+                                        slowprintintroduction("\nIf all is well, email me:")
+                                        time.sleep(2)
+                                        clear()
+                                        print(dbs(dbs("001100000011000100110000001100010011000000110001001100000011000000110000001100010011000100110000001100000011000000110000001100010011000000110001001100010011000000110000001100000011000100110001001100000011000100110001001100010011000000110001001100000011000000110000001100010011000100110000001100010011000000110000001100010011000000110001001100010011000000110000001100000011000100110001001100000011000100110001001100000011000000110000001100000011000100110000001100010011000100110000001100010011000100110000001100000011000000110000001100010011000000110000001100000011000000110000001100000011000100110000001100000011000000110000001100000011000100110000001100010011000100110000001100000011000100110000001100000011000000110001001100010011000100110000001100010011000100110000001100000011000100110001001100000011000000110000001100000011000100110000001100010011000100110000001100010011000100110001001100000011000000110001001100010011000100110000001100010011000000110000001100000011000100110001001100000011000000110000001100000011000100110000001100010011000100110000001100000011000100110001001100010011000000110001001100010011000000110000001100010011000000110001")))
+                                      
                                         break
 
 
@@ -2070,8 +2094,8 @@ def travel():
                         dialogue(playername,"(Fine, what do you want from me then?)")
                     elif dialogueprogress == 9:
                         dialogueprogress = 10
-                        dialogue("Child","")
-                        
+                        instantdialogue("Child","01000110 01110010 01101111 01101101 00100000 01110011 01110101 01101110 00100000 01110100 01101111 00100000 01100100 01110101 01110011 01101011 00101100 00001010 01000110 01110010 01101111 01101101 00100000 01101101 01101111 01110010 01101110 00100000 01110100 01101111 00100000 01101110 01101001 01100111 01101000 01110100 00101100 00001010 01010111 01100101 01110010 01100101 00100000 01101001 01110100 00100000 01100010 01100101 00100000 01100001 00100000 01101000 01110101 01110011 01101011 00101100 00001010 01000001 00100000 01110100 01110010 01110101 01101100 01111001 00100000 01101000 01101111 01110010 01110010 01101001 01100110 01111001 01101001 01101110 01100111 00100000 01110011 01101001 01100111 01101000 01110100 00101110 00001010 00001010 01001001 01100111 01101110 01101111 01110010 01100101 00100000 01110100 01101000 01100101 00100000 01110100 01110010 01110101 01110100 01101000 00101100 00001010 01010011 01100101 01100101 01101011 00100000 01101111 01110101 01110100 00100000 01110100 01101000 01100101 00100000 01101100 01101001 01100101 01110011 00101100 00001010 01001001 01101110 00100000 01110100 01101000 01100101 00100000 01110111 01101111 01110010 01101100 01100100 00100111 01110011 00100000 01111001 01101111 01110101 01110100 01101000 00001010 01001001 01110100 00100111 01110011 00100000 01100111 01110010 01100001 01110110 01100101 00100000 01100100 01101001 01100101 01110011 00101110")
+                        time.sleep(1)
                     elif dialogueprogress == 10:
                         dialogueprogress = 11
                         dialogue(playername,"(...)")      
@@ -2083,7 +2107,7 @@ def travel():
                         dialogue("Child","First of all, you're probablly gonna have to somehow break through the outer wall of the castle. There are archers EVERYWHERE, so you probablly won't get in without a good fight...\nI suggest you-")
                     elif dialogueprogress == 13:
                         dialogueprogress = 14
-                        instantdialogue("Child"," \n\n(y)")
+                        dialogue("Child","168976186167895562567841111\n(y)")
                     elif dialogueprogress == 14:
                         dialogueprogress = 15
                         dialogue("Child","-or else you might not have enough gear to survive...")
@@ -2401,7 +2425,7 @@ ______ _                    _____ _                              _____          
                                                 if keyboard.is_pressed('x'):
                                                     if dialogueprogress == 1:
                                                         dialogueprogress = 2
-                                                        time.sleep(2)
+
                                                         instantcutscene("""                                                                                                                                           
                                                                    
                                                          :                                                                                 
@@ -2444,6 +2468,7 @@ ______ _                    _____ _                              _____          
                               .::--====--:::                             #+=:..   ..:-=*#%%%%%%%%%%%%%%%%%%%%%#*+-:.  .:-+#%%%#.           
                                                                          %%%%%%%%%%%%%%%%%%%%##########%%%%%%%%%%%%%%%#*-                  
                                                                    =                       :-----------.                                   """)
+                                                        time.sleep(2)
                                                     if dialogueprogress == 2:
                                                         dialogueprogress = 3
                                                         dialogue(playername,f"...{partnername}? Let's get out of here.")
@@ -3812,6 +3837,8 @@ while menu == "Tutorial":
         tutorialdialogue = tutorialdialogue + 1
         if tutorialdialogue == 1:
             slowprintintroduction("Anyhow, the name's Richard, nice to meet you.\n(x)")
+            
+
             cancontinue = True
         elif tutorialdialogue == 2:
             slowprintintroduction("Because this game is made almost completely through text, there are a few notable limitations.\n(x)")
