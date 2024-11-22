@@ -23,7 +23,7 @@ refreshrate1 = 0
 
 def advantage():
     global refreshrate1
-    refreshrate1 += 0.5
+    refreshrate1 += 0.05
 
 
 def resettotutorialmessage():
