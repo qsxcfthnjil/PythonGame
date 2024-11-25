@@ -23,7 +23,7 @@ refreshrate1 = 0
 
 def advantage():
     global refreshrate1
-    refreshrate1 += 0.05
+    refreshrate1 += 0.03
 
 
 def resettotutorialmessage():
@@ -1633,7 +1633,7 @@ def easteregg():
                     additiverefresh = 0
                     enemies = 2
                     difficulty = 9
-                    refreshrate = 0.5
+                    refreshrate = 0.6
                     is_fake = False
                     battle = "Advantage"
                     jkl = 1
