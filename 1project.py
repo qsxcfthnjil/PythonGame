@@ -1497,7 +1497,7 @@ while menu == 1:
             tutorialdialogue = 0
         elif menuselection == 3:
             menu = False
-            slowprintintroduction("Hey man, this game was made by a really epic person by the name of Richard Liu.\nPlaytesting credits go to Mr. Mick Laughing, Mr. O, and uhhhhhh that other guy.")
+            slowprintintroduction("Hey man, this game was made by a really epic person by the name of qsxcfthnjil.\nPlaytesting credits go to Mr. Mick Laughing, Mr. O, and uhhhhhh my sister for playtesting.")
             time.sleep(5)
             menu = 1
             clear()
@@ -3836,7 +3836,7 @@ while menu == "Tutorial":
         cancontinue = False
         tutorialdialogue = tutorialdialogue + 1
         if tutorialdialogue == 1:
-            slowprintintroduction("Anyhow, the name's Richard, nice to meet you.\n(x)")
+            slowprintintroduction("Anyhow, the name's qsxcfthnjil, nice to meet you.\n(x)")
             
 
             cancontinue = True
